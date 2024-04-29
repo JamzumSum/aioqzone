@@ -47,7 +47,7 @@ slide-captcha = ["slide-tc"]
 optional = false
 
 [tool.poetry.group.test.dependencies]
-pytest = "^7.4.0"
+pytest = ">=7.4,<9.0"
 pytest-asyncio = "~0.21.0"
 
 [tool.poetry.group.dev]
