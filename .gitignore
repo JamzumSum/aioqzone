@@ -11,6 +11,7 @@ package-lock.json
 node_modules
 
 # cache and tempfiles
+__pycache__
 *.pyc
 tmp
 /data
