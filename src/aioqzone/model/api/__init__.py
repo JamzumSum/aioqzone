@@ -12,6 +12,8 @@ TyHttpMethod = t.Union[t.Literal["GET"], t.Literal["POST"]]
 
 
 class QzoneApi(BaseModel, t.Generic[TyRequest, TyResponse]):
+    """The base class for all Qzone APIs below."""
+
     host: t.ClassVar[str] = "https://h5.qzone.qq.com"
     http_method: t.ClassVar[TyHttpMethod]
     path: t.ClassVar[str]

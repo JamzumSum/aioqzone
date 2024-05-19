@@ -73,5 +73,6 @@ autodoc_member_order = "bysource"
 # external inventory
 intersphinx_mapping = {
     # "httpx": ("https://www.python-httpx.org/", None),
+    "aiohttp": ("https://docs.aiohttp.org/en/stable/", None),
     "python": ("https://docs.python.org/3/", None),
 }

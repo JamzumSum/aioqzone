@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aioqzone \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-04 16:34+0800\n"
+"POT-Creation-Date: 2024-05-19 10:03+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.13.1\n"
+"Generated-By: Babel 2.15.0\n"
 
 #: ../../source/qqqr/up/login.rst:2
 msgid "UpLogin and UpSession"
@@ -33,10 +33,6 @@ msgstr ""
 msgid "`TeaEncoder` is the only encoder. ``NodeEncoder`` is removed."
 msgstr ""
 
-#: of qqqr.up.web.UpWebLogin.login:1
-msgid "Block until cookie is received."
-msgstr ""
-
 #: of qqqr.up.web.UpWebLogin.new:1
 msgid ""
 "Create a :class:`UpWebSession`. This will call `check` api of Qzone, and receive result about "
@@ -45,6 +41,10 @@ msgstr ""
 
 #: of qqqr.up.web.UpWebLogin.new
 msgid "抛出"
+msgstr ""
+
+#: of qqqr.up.web.UpWebLogin.new:4
+msgid "if response status != 200"
 msgstr ""
 
 #: of qqqr.up.web.UpWebLogin.new qqqr.up.web.UpWebLogin.try_login
@@ -79,6 +79,10 @@ msgstr ""
 
 #: of qqqr.up.web.UpWebLogin.try_login:6
 msgid "A login response"
+msgstr ""
+
+#: of qqqr.up.web.UpWebLogin.login:1
+msgid "Block until cookie is received."
 msgstr ""
 
 #~ msgid "Parameters"

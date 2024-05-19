@@ -9,12 +9,12 @@ __all__ = ["raise_for_status", "get_all_cookie", "ClientAdapter"]
 
 
 def raise_for_status(response: Response, *accept_code: int):
-    """A checker more strict than :meth:`~httpx.Response.raise_for_status`.
+    """A checker more strict than :meth:`~aiohttp.ClientResponse.raise_for_status`.
 
     :param response: Client response to check.
     :param accept_code: Overwrite codes that can be accepted, If not given, default is `(200, )`
 
-    :raise `httpx.HTTPStatusError`: if status not in :obj:`accept_code`
+    :raise `aiohttp.ClientResponseError`: if status not in :obj:`accept_code`
     """
     response.raise_for_status
     accept_code = accept_code or (200,)

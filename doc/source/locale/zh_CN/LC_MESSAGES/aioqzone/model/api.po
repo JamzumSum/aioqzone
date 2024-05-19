@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aioqzone \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-30 20:56+0800\n"
+"POT-Creation-Date: 2024-05-19 10:48+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_CN\n"
@@ -17,10 +17,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.14.0\n"
+"Generated-By: Babel 2.15.0\n"
 
 #: ../../source/aioqzone/model/api.rst:2
 msgid "H5 API definations"
+msgstr ""
+
+#: aioqzone.model.api.QzoneApi:1 of
+msgid "The base class for all Qzone APIs below."
 msgstr ""
 
 #: aioqzone.model.api.AddCommentApi aioqzone.model.api.AddOperationApi aioqzone.model.api.FeedPageApi
@@ -64,7 +68,7 @@ msgid ""
 "<aioqzone.model.api.AddOperationApi.response>`"
 msgstr ""
 
-#: ../../source/aioqzone/model/api.rst:9
+#: ../../source/aioqzone/model/api.rst:12
 msgid "Parameters"
 msgstr ""
 
@@ -402,7 +406,7 @@ msgstr ""
 msgid ":py:obj:`width (int) <aioqzone.model.api.request.PhotoData.width>`"
 msgstr ""
 
-#: ../../source/aioqzone/model/api.rst:16
+#: ../../source/aioqzone/model/api.rst:19
 msgid "Responses"
 msgstr ""
 
