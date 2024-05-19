@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aioqzone \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-10 10:03+0800\n"
+"POT-Creation-Date: 2024-05-19 09:37+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_CN\n"
@@ -17,20 +17,20 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.13.1\n"
+"Generated-By: Babel 2.15.0\n"
 
 #: ../../source/qqqr/jsjson.rst:2
 msgid "Parsing Javascript Dictionary"
 msgstr ""
 
 #: of qqqr.utils.jsjson.AstLoader:1
-msgid "`AstLoader` uses standard :mod:`ast` module to parse the js/json"
+msgid ":class:`AstLoader` uses standard :mod:`ast` module to parse the js/json"
 msgstr ""
 
 #: of qqqr.utils.jsjson.AstLoader.json_loads:1
 msgid ""
-"The json_loads function loads a JSON object from a js/json string. It uses standard :mod:`ast` "
-"module to parse the js/json."
+"The :meth:`~AstLoader.json_loads` function loads a JSON object from a js/json string. It uses "
+"standard :mod:`ast` module to parse the js/json."
 msgstr ""
 
 #: of qqqr.utils.jsjson.AstLoader.json_loads qqqr.utils.jsjson.json_loads
@@ -72,21 +72,21 @@ msgid "返回"
 msgstr ""
 
 #: of qqqr.utils.jsjson.AstLoader.json_loads:9 qqqr.utils.jsjson.json_loads:11
-msgid "A jsonvalue object."
+msgid "A :obj:`JsonValue` object."
 msgstr ""
 
 #: of qqqr.utils.jsjson.json_loads:1
 msgid ""
-"The json_loads function converts a string representation of JS/JSON data into a Python object. "
-"Current implementation is using :external+python:mod:`ast`."
+"The :meth:`json_loads` function converts a string representation of JS/JSON data into a Python "
+"object. Current implementation is using :external+python:mod:`ast`."
 msgstr ""
 
 #: of qqqr.utils.jsjson.json_loads:4
-msgid "If you need more parameters or another implementation, call `xxxLoader.json_loads` instead."
+msgid ":meth:`.AstLoader.json_loads`"
 msgstr ""
 
 #: of qqqr.utils.jsjson.json_loads:6
-msgid ":meth:`.AstLoader.json_loads`"
+msgid "If you need more parameters or another implementation, call ``xxxLoader.json_loads`` instead."
 msgstr ""
 
 #: of qqqr.utils.jsjson.json_loads:9
@@ -104,4 +104,31 @@ msgstr ""
 #~ ":py:class:`int`, :py:class:`str`, "
 #~ ":py:class:`~typing.Dict`\\[:py:data:`~typing.Union`\\[:py:class:`str`, "
 #~ ":py:class:`int`], JsonValue], :py:class:`~typing.List`\\[JsonValue]]]]"
+#~ msgstr ""
+
+#~ msgid "`AstLoader` uses standard :mod:`ast` module to parse the js/json"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The json_loads function loads a JSON object from"
+#~ " a js/json string. It uses standard :mod:`ast` "
+#~ "module to parse the js/json."
+#~ msgstr ""
+
+#~ msgid "A jsonvalue object."
+#~ msgstr ""
+
+#~ msgid "If you need more parameters or another implementation, call `xxxLoader.json_loads` instead."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The :meth:`json_loads` function loads a JSON object "
+#~ "from a js/json string. It uses standard :mod:`ast`"
+#~ " module to parse the js/json."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "The json_loads function converts a string representation"
+#~ " of JS/JSON data into a Python object. Current"
+#~ " implementation is using :external+python:mod:`ast`."
 #~ msgstr ""

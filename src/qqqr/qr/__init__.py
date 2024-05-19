@@ -88,6 +88,10 @@ class QrLogin(LoginBase[QrSession], _QrHookMixin):
         return QrSession(await self.show(push_qr), login_sig=login_sig)
 
     async def show(self, push_qr=False) -> QR:
+        """``ptqrshow`` api.
+
+        :param push_qr: push QR to mobile client.
+        """
         data = {
             "appid": self.app.appid,
             "daid": self.app.daid,
@@ -125,7 +129,7 @@ class QrLogin(LoginBase[QrSession], _QrHookMixin):
     async def poll(self, sess: QrSession) -> PollResp:
         """Poll QR status.
 
-        :raise `httpx.HTTPStatusError`: if response status code != 200
+        :raise `aiohttp.ClientResponseError`: if response status code != 200
 
         :return: a poll response object
         """
@@ -168,17 +172,17 @@ class QrLogin(LoginBase[QrSession], _QrHookMixin):
         poll_freq: float = 3,
     ):
         """Loop until cookie is returned or max `refresh_times` exceeds.
-        - This method will emit :meth:`QrEvent.QrFetched` event if a new qrcode is fetched.
-        - If qr is not scanned after `refresh_times`, it will raise :exc:`asyncio.TimeoutError`.
-        - If :obj:`QrEvent.refresh_flag` is set, it will refresh qrcode at once without increasing expire counter.
-        - If :obj:`QrEvent.cancel_flag` is set, it will raise :exc:`UserBreak` before next polling.
+        - This method will emit :obj:`.qr_fetched` event if a new qrcode is fetched.
+        - If qr is not scanned after `refresh_times`, it will raise :exc:`UserTimeout`.
+        - If :obj:`.refresh` is set, it will refresh qrcode at once without increasing expire counter.
+        - If :obj:`.cancel` is set, it will raise :exc:`UserBreak` before next polling.
 
         :meta public:
         :param refresh_times: max qr expire times.
         :param poll_freq: interval between two status polling, in seconds, default as 3.
 
         :raise `UserTimeout`: if qr is not scanned after `refresh_times` expires.
-        :raise `UserBreak`: if :obj:`QrEvent.cancel_flag` is set.
+        :raise `UserBreak`: if :obj:`.cancel` is set.
         """
         self.refresh.clear()
         self.cancel.clear()
