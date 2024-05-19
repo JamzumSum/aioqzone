@@ -136,7 +136,7 @@ class UpWebLogin(LoginBase[UpWebSession], _UpHookMixin):
         """Create a :class:`UpWebSession`. This will call `check` api of Qzone, and receive result
         about whether this login needs a captcha, sms verification, etc.
 
-        :raise `httpx.HTTPStatusError`:
+        :raise `aiohttp.ClientResponseError`: if response status != 200
 
         :return: a up login session
         """

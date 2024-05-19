@@ -10,9 +10,13 @@ JsonValue = Union[bool, int, str, JsonDict, JsonList]
 
 
 class AstLoader:
-    """`AstLoader` uses standard :mod:`ast` module to parse the js/json"""
+    """:class:`AstLoader` uses standard :mod:`ast` module to parse the js/json"""
 
     class RewriteUndef(ast.NodeTransformer):
+        """
+        :meta private:
+        """
+
         const = {
             "undefined": ast.Constant(value=None),
             "null": ast.Constant(value=None),
@@ -28,12 +32,12 @@ class AstLoader:
     @classmethod
     def json_loads(cls, js: str, filename: str = "stdin") -> JsonValue:
         """
-        The json_loads function loads a JSON object from a js/json string. It uses standard
+        The :meth:`~AstLoader.json_loads` function loads a JSON object from a js/json string. It uses standard
         :mod:`ast` module to parse the js/json.
 
         :param js: Used to Pass the js/json string to be parsed.
         :param filename: Used to Specify the name of the file that is being read. This is only for debug use.
-        :return: A jsonvalue object.
+        :return: A :obj:`JsonValue` object.
         """
         js = dedent(js).replace(r"\/", "/")
         node = ast.parse(js, mode="eval")
@@ -43,14 +47,14 @@ class AstLoader:
 
 
 def json_loads(js: str) -> JsonValue:
-    """The json_loads function converts a string representation of JS/JSON data into a Python object.
+    """The :meth:`json_loads` function converts a string representation of JS/JSON data into a Python object.
     Current implementation is using :external+python:mod:`ast`.
-
-    If you need more parameters or another implementation, call `xxxLoader.json_loads` instead.
 
     .. seealso:: :meth:`.AstLoader.json_loads`
 
+    If you need more parameters or another implementation, call ``xxxLoader.json_loads`` instead.
+
     :param js: Used to Pass the JS/JSON string.
-    :return: A jsonvalue object.
+    :return: A :obj:`JsonValue` object.
     """
     return AstLoader.json_loads(js)
