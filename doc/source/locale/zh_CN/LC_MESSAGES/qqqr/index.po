@@ -8,15 +8,54 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aioqzone \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-13 10:13+0800\n"
+"POT-Creation-Date: 2024-05-25 16:15+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: JamzumSum <zzzzss990315@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.10.3\n"
+"Generated-By: Babel 2.15.0\n"
 
-#: ../../source/qqqr/index.rst:2
+#: ../../source/qqqr/index.rst:3
 msgid "QQQR"
+msgstr ""
+
+#: of qqqr:1
+msgid ""
+"QQQR is an API-level simulation of Qzone web login process. Currently this package includes QR "
+"login and password login. A captcha verifier is also contained to pass TDC."
+msgstr "此软件包从 API 层面模拟 Qzone Web 的登录过程。目前它包含二维码登录和用户密码登录。"
+"为了通过防水墙，它还带有一个模拟人类解答验证码的验证器。"
+
+#: ../../source/qqqr/index.rst:9
+msgid "Basic Concepts"
+msgstr "基本概念"
+
+#: ../../source/qqqr/index.rst:11
+msgid ""
+"Before referencing the detailed implements directly, a brief description is useful for you to "
+"understand the overall constructing logic of :mod:`QQQR` package."
+msgstr "在您直接查看具体实现的文档之前，不妨先阅读此概要。这有助于您从整体上理解 :mod:`QQQR` 软件包的构造逻辑。"
+
+#: ../../source/qqqr/index.rst:14
+msgid ""
+"Login logics are packaged into classes named ``xxLogin``, which must inherit from "
+":class:`~qqqr.base.LoginBase`."
+msgstr "``xxLogin`` 类中封装了具体的登录逻辑，这些类必须继承 :class:`~qqqr.base.LoginBase`。"
+
+#: ../../source/qqqr/index.rst:17
+msgid ""
+":class:`LoginBase` s are reusable. In another word, login data are seperated from login logic. "
+"The data collecting classes are named ``xxSession``, which must inherit from "
+":class:`~qqqr.base.LoginSession`."
+msgstr ":class:`LoginBase` 是可复用的。换句话说，登录产生的数据和登录的逻辑是分离的。存储每次登录数据的类命名为 "
+"``xxSession`` ，它们必须继承 :class:`~qqqr.base.LoginSession`。"
+
+#: ../../source/qqqr/index.rst:24
+msgid "Contents"
+msgstr ""
+
+#: ../../source/qqqr/index.rst:37
+msgid "Miscellaneous"
 msgstr ""

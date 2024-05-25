@@ -5,5 +5,5 @@ Uin-Password Login
     :maxdepth: 1
     :glob:
 
-    captcha/*
     *
+    captcha/*

@@ -1,4 +1,4 @@
 """
-QQQR is a simulation of Qzone web login process. Including QR login and password login.
-A captcha verifier is also contained to pass TDC.
+QQQR is an API-level simulation of Qzone web login process. Currently this package
+includes QR login and password login. A captcha verifier is also contained to pass TDC.
 """

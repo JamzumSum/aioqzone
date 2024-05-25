@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aioqzone \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-19 09:58+0800\n"
+"POT-Creation-Date: 2024-05-25 16:08+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,32 +21,94 @@ msgstr ""
 msgid "QrLogin and QrSession"
 msgstr ""
 
+#: of qqqr.qr.QR:1
+msgid "Class :class:`QR` represents a QR code."
+msgstr ""
+
+#: ../../../docstring of qqqr.qr.QR.png:1
+msgid "QR code content. If None, the QR is pushed to user's client."
+msgstr ""
+
+#: ../../../docstring of qqqr.qr.QR.expired:1
+msgid "Whether the QR code is expired."
+msgstr ""
+
+#: of qqqr.qr.QR.pushed:1
+msgid "Whether the QR code is pushed to user's client."
+msgstr ""
+
+#: ../../../docstring of qqqr.qr.QrSession.refreshed:1
+msgid "QR code refresh times counter."
+msgstr ""
+
+#: ../../../docstring of qqqr.qr.QrSession.current_qr:1
+msgid "A :class:`QrSession` keeps a :class:`QR` object as current QR code."
+msgstr ""
+
+#: of qqqr.qr.QrSession.new_qr:1
+msgid "Add a new QR code to this session."
+msgstr ""
+
 #: of qqqr.qr.QrLogin.new:1
-msgid "Create a new :class:`LoginSession`."
+msgid "Create a :class:`QrSession`. This method will:"
+msgstr ""
+
+#: of qqqr.qr.QrLogin.new:3
+msgid "GET ``xlogin`` url to get ``pt_login_sig`` cookie;"
+msgstr ""
+
+#: of qqqr.qr.QrLogin.new:5
+msgid "Try \"quick login\" (the QR code is pushed to user's client);"
+msgstr ""
+
+#: of qqqr.qr.QrLogin.new:7
+msgid ""
+"Whether the QR code is pushed or not, a :class:`QR` object is created and is hold by the "
+"returned :class:`QrSession`."
+msgstr ""
+
+#: of qqqr.qr.QrLogin.login qqqr.qr.QrLogin.new qqqr.qr.QrLogin.show
+msgid "参数"
+msgstr ""
+
+#: of qqqr.qr.QrLogin.login:18 qqqr.qr.QrLogin.new:11
+msgid "Do not try to push the QR code to user's client."
 msgstr ""
 
 #: of qqqr.qr.QrLogin.new qqqr.qr.QrLogin.poll qqqr.qr.QrLogin.show
 msgid "返回类型"
 msgstr ""
 
-#: of qqqr.qr.QrLogin.new:4
+#: of qqqr.qr.QrLogin.new:12
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qqqr.qr.QrSession\\``"
 msgstr ""
 
-#: of qqqr.qr.QrLogin.show:1
-msgid "``ptqrshow`` api."
+#: of qqqr.qr.QrLogin.new qqqr.qr.QrLogin.poll qqqr.qr.QrLogin.show
+msgid "返回"
 msgstr ""
 
-#: of qqqr.qr.QrLogin.login qqqr.qr.QrLogin.show
-msgid "参数"
+#: of qqqr.qr.QrLogin.new:13
+msgid "a :class:`QrSession`"
+msgstr ""
+
+#: of qqqr.qr.QrLogin.login:25 qqqr.qr.QrLogin.new:17
+msgid "Added :obj:`no_push` param."
+msgstr ""
+
+#: of qqqr.qr.QrLogin.show:1
+msgid "This method will call ``ptqrshow`` api and wrap the response QR bytes into :class:`QR`."
 msgstr ""
 
 #: of qqqr.qr.QrLogin.show:4
 msgid "push QR to mobile client."
 msgstr ""
 
-#: of qqqr.qr.QrLogin.show:6
+#: of qqqr.qr.QrLogin.show:5
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qqqr.qr.QR\\``"
+msgstr ""
+
+#: of qqqr.qr.QrLogin.show:6
+msgid "a :class:`QR` object."
 msgstr ""
 
 #: of qqqr.qr.QrLogin.poll:1
@@ -65,41 +127,46 @@ msgstr ""
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qqqr.qr.type.PollResp\\``"
 msgstr ""
 
-#: of qqqr.qr.QrLogin.poll
-msgid "返回"
-msgstr ""
-
 #: of qqqr.qr.QrLogin.poll:6
 msgid "a poll response object"
 msgstr ""
 
 #: of qqqr.qr.QrLogin.login:1
+msgid "Loop until cookie is returned or max :obj:`refresh_times` exceeds."
+msgstr ""
+
+#: of qqqr.qr.QrLogin.login:3
+msgid "This method will emit :obj:`.qr_fetched` event if a new qrcode is fetched."
+msgstr ""
+
+#: of qqqr.qr.QrLogin.login:5
 msgid ""
-"Loop until cookie is returned or max `refresh_times` exceeds. - This method will emit "
-":obj:`.qr_fetched` event if a new qrcode is fetched. - If qr is not scanned after "
-"`refresh_times`, it will raise :exc:`UserTimeout`. - If :obj:`.refresh` is set, it will refresh "
-"qrcode at once without increasing expire counter. - If :obj:`.cancel` is set, it will raise "
-":exc:`UserBreak` before next polling."
+"If the QR code is not scanned after :obj:`refresh_times`, it will raise "
+":exc:`~qqqr.exception.UserTimeout`."
 msgstr ""
 
-#: of qqqr.qr.QrLogin.login:9
-msgid "max qr expire times."
+#: of qqqr.qr.QrLogin.login:8
+msgid "If :obj:`.refresh` is set, it will refresh qrcode at once without increasing expire counter."
 msgstr ""
 
-#: of qqqr.qr.QrLogin.login:11
-msgid "interval between two status polling, in seconds, default as 3."
-msgstr ""
-
-#: of qqqr.qr.QrLogin.login:13
-msgid "if qr is not scanned after `refresh_times` expires."
+#: of qqqr.qr.QrLogin.login:10
+msgid "If :obj:`.cancel` is set, it will raise :exc:`~qqqr.exception.UserBreak` before next polling."
 msgstr ""
 
 #: of qqqr.qr.QrLogin.login:14
-msgid "if :obj:`.cancel` is set."
+msgid "max qr expire times."
 msgstr ""
 
-#: ../../../docstring of qqqr.qr.QR.png:1
-msgid "If None, the QR is pushed to user's client."
+#: of qqqr.qr.QrLogin.login:16
+msgid "interval between two status polling, in seconds, default as 3."
+msgstr ""
+
+#: of qqqr.qr.QrLogin.login:20
+msgid "if the QR code is not scanned after :obj:`refresh_times` expires."
+msgstr ""
+
+#: of qqqr.qr.QrLogin.login:21
+msgid "if :obj:`.cancel` is set."
 msgstr ""
 
 #~ msgid "Return type"
@@ -136,4 +203,55 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "if :obj:`QrEvent.cancel_flag` is set."
+#~ msgstr ""
+
+#~ msgid "GET this login url to get cookies."
+#~ msgstr ""
+
+#~ msgid "whether this session is logined."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Loop until cookie is returned or max "
+#~ "`refresh_times` exceeds. - This method will emit "
+#~ ":obj:`.qr_fetched` event if a new qrcode is "
+#~ "fetched. - If qr is not scanned after "
+#~ "`refresh_times`, it will raise :exc:`UserTimeout`. - If"
+#~ " :obj:`.refresh` is set, it will refresh qrcode "
+#~ "at once without increasing expire counter. - If "
+#~ ":obj:`.cancel` is set, it will raise :exc:`UserBreak` "
+#~ "before next polling."
+#~ msgstr ""
+
+#~ msgid "If qr is not scanned after `refresh_times`, it will raise :exc:`~qqqr.exception.UserTimeout`."
+#~ msgstr ""
+
+#~ msgid "if qr is not scanned after `refresh_times` expires."
+#~ msgstr ""
+
+#~ msgid "If the QR code is not scanned after :obj:`refresh_times`,"
+#~ msgstr ""
+
+#~ msgid "it will raise :exc:`~qqqr.exception.UserTimeout`."
+#~ msgstr ""
+
+#~ msgid "If None, the QR is pushed to user's client."
+#~ msgstr ""
+
+#~ msgid "Create a new :class:`LoginSession`."
+#~ msgstr ""
+
+#~ msgid "``ptqrshow`` api."
+#~ msgstr ""
+
+#~ msgid "QR code refresh times."
+#~ msgstr ""
+
+#~ msgid "A QR session keeps a :class:`QR` object as current QR code."
+#~ msgstr ""
+
+#~ msgid "Try \"quick login\" (the QR code is pushed to user's client)"
+#~ msgstr ""
+
+#~ msgid "Loop until cookie is returned or max `refresh_times` exceeds."
 #~ msgstr ""

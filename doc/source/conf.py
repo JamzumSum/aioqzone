@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = "aioqzone"
-copyright = "2022-2023, aioqzone"
+copyright = "2022-2024, aioqzone"
 author = "aioqzone"
 
 # The full version, including alpha/beta/rc tags
@@ -74,5 +74,6 @@ autodoc_member_order = "bysource"
 intersphinx_mapping = {
     # "httpx": ("https://www.python-httpx.org/", None),
     "aiohttp": ("https://docs.aiohttp.org/en/stable/", None),
+    "tylisten": ("https://JamzumSum.github.io/tylisten", None),
     "python": ("https://docs.python.org/3/", None),
 }

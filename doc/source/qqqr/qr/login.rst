@@ -3,11 +3,12 @@ QrLogin and QrSession
 
 .. currentmodule:: qqqr.qr
 
-.. autoclass:: QrLogin
-    :members:
-
 .. autoclass:: QR
     :members:
+    :inherited-members: LoginBase
 
 .. autoclass:: QrSession
+    :members:
+
+.. autoclass:: QrLogin
     :members:
