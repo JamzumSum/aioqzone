@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aioqzone \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-19 10:03+0800\n"
+"POT-Creation-Date: 2024-05-25 15:19+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,17 +34,23 @@ msgid "`TeaEncoder` is the only encoder. ``NodeEncoder`` is removed."
 msgstr ""
 
 #: of qqqr.up.web.UpWebLogin.new:1
-msgid ""
-"Create a :class:`UpWebSession`. This will call `check` api of Qzone, and receive result about "
-"whether this login needs a captcha, sms verification, etc."
+msgid "Create a :class:`UpWebSession`. This will trigger a GET to ``xlogin`` url."
 msgstr ""
 
 #: of qqqr.up.web.UpWebLogin.new
 msgid "抛出"
 msgstr ""
 
-#: of qqqr.up.web.UpWebLogin.new:4
+#: of qqqr.up.web.UpWebLogin.new:3
 msgid "if response status != 200"
+msgstr ""
+
+#: of qqqr.up.web.UpWebLogin.new qqqr.up.web.UpWebLogin.try_login
+msgid "返回类型"
+msgstr ""
+
+#: of qqqr.up.web.UpWebLogin.new:5
+msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qqqr.up.web.UpWebSession\\``"
 msgstr ""
 
 #: of qqqr.up.web.UpWebLogin.new qqqr.up.web.UpWebLogin.try_login
@@ -55,12 +61,23 @@ msgstr ""
 msgid "a up login session"
 msgstr ""
 
-#: of qqqr.up.web.UpWebLogin.send_sms_code:1
-msgid "Send verify sms (to get dynamic code)"
+#: of qqqr.up.h5.UpH5Login.check:1 qqqr.up.web.UpWebLogin.check:1
+msgid ""
+"This will call ``check`` api of Qzone, and receive result about whether this login needs a "
+"captcha, sms verification, etc."
 msgstr ""
 
-#: of qqqr.up.web.UpWebLogin.send_sms_code qqqr.up.web.UpWebLogin.try_login
+#: of qqqr.up.h5.UpH5Login.check qqqr.up.web.UpWebLogin.check qqqr.up.web.UpWebLogin.send_sms_code
+#: qqqr.up.web.UpWebLogin.try_login
 msgid "参数"
+msgstr ""
+
+#: of qqqr.up.h5.UpH5Login.check:5 qqqr.up.web.UpWebLogin.check:5
+msgid "Session got from :meth:`~UpWebLogin.new`."
+msgstr ""
+
+#: of qqqr.up.web.UpWebLogin.send_sms_code:1
+msgid "Send verify sms (to get dynamic code)"
 msgstr ""
 
 #: of qqqr.up.web.UpWebLogin.send_sms_code:4
@@ -78,6 +95,10 @@ msgid "Store the session information"
 msgstr ""
 
 #: of qqqr.up.web.UpWebLogin.try_login:6
+msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qqqr.up.\\_model.LoginResp\\``"
+msgstr ""
+
+#: of qqqr.up.web.UpWebLogin.try_login:7
 msgid "A login response"
 msgstr ""
 
@@ -211,4 +232,20 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "https://github.com/fingerprintjs/fingerprintjs"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Create a :class:`UpWebSession`. This will call `check`"
+#~ " api of Qzone, and receive result about whether"
+#~ " this login needs a captcha, sms verification, "
+#~ "etc."
+#~ msgstr ""
+
+#~ msgid "Session got from :meth:`.new`."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This will call `check` api of Qzone, and "
+#~ "receive result about whether this login needs a "
+#~ "captcha, sms verification, etc."
 #~ msgstr ""

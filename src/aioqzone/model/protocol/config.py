@@ -26,3 +26,5 @@ class QrLoginConfig(LoginConfig):
     """Maximum QR code refresh times."""
     poll_freq: float = 3
     """QR status polling interval."""
+    no_push: bool = False
+    """Do not try to push the QR code to user's client."""

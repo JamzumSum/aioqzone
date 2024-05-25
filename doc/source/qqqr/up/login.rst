@@ -5,6 +5,7 @@ UpLogin and UpSession
 
 .. autoclass:: UpWebLogin
     :members:
+    :inherited-members: LoginBase
 
 .. autoclass:: UpH5Login
     :members:

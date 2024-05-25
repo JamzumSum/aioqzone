@@ -28,13 +28,17 @@ PTLOGIN2 = URL("https://ptlogin2.qq.com")
 
 @dataclass(unsafe_hash=True)
 class QR:
+    """Class :class:`QR` represents a QR code."""
+
     png: t.Optional[bytes]
-    """If None, the QR is pushed to user's client."""
+    """QR code content. If None, the QR is pushed to user's client."""
     sig: str
     expired: bool = False
+    """Whether the QR code is expired."""
 
     @property
     def pushed(self):
+        """Whether the QR code is pushed to user's client."""
         return self.png is None
 
 
@@ -49,9 +53,12 @@ class QrSession(LoginSession):
     ) -> None:
         super().__init__(login_sig=login_sig, create_time=create_time)
         self.refreshed = refresh_times
+        """QR code refresh times counter."""
         self.current_qr = first_qr
+        """A :class:`QrSession` keeps a :class:`QR` object as current QR code."""
 
     def new_qr(self, qr: QR):
+        """Add a new QR code to this session."""
         self.current_qr.expired = True
         self.current_qr = qr
         self.refreshed += 1
@@ -61,14 +68,36 @@ class _QrHookMixin:
     def __init__(self, *args, **kwds) -> None:
         super().__init__(*args, **kwds)
         self.qr_fetched = MT.qr_fetched.with_timeout(60)
+        """This emitter is triggered when a QR code is fetched."""
         self.qr_cancelled = MT.qr_cancelled()
+        """This emitter is triggered when QR login is cancelled."""
         self.cancel = asyncio.Event()
+        """Async-event indicating whether the loop should cancel the QR login."""
         self.refresh = asyncio.Event()
+        """Async-event indicating whether the loop should refresh the QR code immediately."""
 
 
 class QrLogin(LoginBase[QrSession], _QrHookMixin):
-    async def new(self) -> QrSession:
+    async def new(self, no_push=False) -> QrSession:
+        """Create a :class:`QrSession`. This method will:
+
+        1. GET ``xlogin`` url to get ``pt_login_sig`` cookie;
+
+        #. Try "quick login" (the QR code is pushed to user's client);
+
+        #. Whether the QR code is pushed or not, a :class:`QR` object is created
+           and is hold by the returned :class:`QrSession`.
+
+        :param no_push: Do not try to push the QR code to user's client.
+        :return: a :class:`QrSession`
+
+        .. versionchanged:: 1.8.3
+
+            Added :obj:`no_push` param.
+        """
         login_sig = await self._pt_login_sig()
+        if no_push:
+            return QrSession(await self.show(), login_sig=login_sig)
 
         cookie = self.client.cookie_jar.filter_cookies(PTLOGIN2).get("pt_guid_sig")
         push_qr = False
@@ -88,9 +117,10 @@ class QrLogin(LoginBase[QrSession], _QrHookMixin):
         return QrSession(await self.show(push_qr), login_sig=login_sig)
 
     async def show(self, push_qr=False) -> QR:
-        """``ptqrshow`` api.
+        """This method will call ``ptqrshow`` api and wrap the response QR bytes into :class:`QR`.
 
         :param push_qr: push QR to mobile client.
+        :return: a :class:`QR` object.
         """
         data = {
             "appid": self.app.appid,
@@ -170,26 +200,37 @@ class QrLogin(LoginBase[QrSession], _QrHookMixin):
         *,
         refresh_times: int = 6,
         poll_freq: float = 3,
+        no_push=False,
     ):
-        """Loop until cookie is returned or max `refresh_times` exceeds.
+        """Loop until cookie is returned or max :obj:`refresh_times` exceeds.
+
         - This method will emit :obj:`.qr_fetched` event if a new qrcode is fetched.
-        - If qr is not scanned after `refresh_times`, it will raise :exc:`UserTimeout`.
+
+        - If the QR code is not scanned after :obj:`refresh_times`,
+          it will raise :exc:`~qqqr.exception.UserTimeout`.
+
         - If :obj:`.refresh` is set, it will refresh qrcode at once without increasing expire counter.
-        - If :obj:`.cancel` is set, it will raise :exc:`UserBreak` before next polling.
+
+        - If :obj:`.cancel` is set, it will raise :exc:`~qqqr.exception.UserBreak` before next polling.
 
         :meta public:
         :param refresh_times: max qr expire times.
         :param poll_freq: interval between two status polling, in seconds, default as 3.
+        :param no_push: Do not try to push the QR code to user's client.
 
-        :raise `UserTimeout`: if qr is not scanned after `refresh_times` expires.
+        :raise `UserTimeout`: if the QR code is not scanned after :obj:`refresh_times` expires.
         :raise `UserBreak`: if :obj:`.cancel` is set.
+
+        .. versionchanged:: 1.8.3
+
+            Added :obj:`no_push` param.
         """
         self.refresh.clear()
         self.cancel.clear()
 
         cnt_expire = 0
         renew = False
-        sess = await self.new()
+        sess = await self.new(no_push)
 
         while cnt_expire < refresh_times:
             # BUG: should we wrap hook errors here?
@@ -206,6 +247,7 @@ class QrLogin(LoginBase[QrSession], _QrHookMixin):
                 await asyncio.sleep(poll_freq)
                 stat = await self.poll(sess)
                 if stat.code == StatusCode.Expired:
+                    sess.current_qr.expired = True
                     cnt_expire += 1
                     break
                 elif stat.code == StatusCode.Authenticated:

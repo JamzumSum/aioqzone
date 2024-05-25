@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-04 16:42+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: JamzumSum <zzzzss990315@gmail.com>\n"
 "Language: zh_CN\n"
 "Language-Team: zh_CN <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -21,15 +21,15 @@ msgstr ""
 
 #: ../../source/qqqr/up/encrypt.rst:2
 msgid "Password Encoder"
-msgstr ""
+msgstr "密码加密算法"
 
 #: of qqqr.up.encrypt:1
 msgid "This module implements (or calls) qzone password encrypt algorithm."
-msgstr ""
+msgstr "此模块实现（或调用） Qzone 密码加密算法。"
 
 #: of qqqr.up.encrypt.TeaEncoder:1
 msgid "Pure python password encoder implementation using tea and rsa."
-msgstr ""
+msgstr "借助 RSA 库实现的纯 Python TEA 加密算法。"
 
 #: of qqqr.up.encrypt.TeaEncoder:5
 msgid ""
@@ -41,9 +41,3 @@ msgstr ""
 #: of qqqr.up.encrypt.TeaEncoder:10
 msgid "For javascript cases, we provide a `TypeScript version <_static/teaencoder.ts>` (testing)."
 msgstr ""
-
-#~ msgid "For javascript cases, we have a TypeScript version at `_static/teaencoder.ts`_ ."
-#~ msgstr ""
-
-#~ msgid "For javascript cases, we have a `TypeScript version <_static/teaencoder.ts>`"
-#~ msgstr ""

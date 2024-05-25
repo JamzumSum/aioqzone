@@ -99,6 +99,7 @@ class _UpHookMixin:
     def __init__(self, *args, **kwds) -> None:
         super().__init__(*args, **kwds)
         self.sms_code_input = MT.sms_code_input.with_timeout(60)
+        """This emitter is triggered when SMS verify code is needed during login."""
 
 
 class UpWebLogin(LoginBase[UpWebSession], _UpHookMixin):
@@ -132,9 +133,8 @@ class UpWebLogin(LoginBase[UpWebSession], _UpHookMixin):
             self.client, self.app.appid, str(self.login_page_url), fake_ip=fake_ip
         )
 
-    async def new(self):
-        """Create a :class:`UpWebSession`. This will call `check` api of Qzone, and receive result
-        about whether this login needs a captcha, sms verification, etc.
+    async def new(self) -> UpWebSession:
+        """Create a :class:`UpWebSession`. This will trigger a GET to ``xlogin`` url.
 
         :raise `aiohttp.ClientResponseError`: if response status != 200
 
@@ -143,6 +143,11 @@ class UpWebLogin(LoginBase[UpWebSession], _UpHookMixin):
         return UpWebSession(await self._pt_login_sig())
 
     async def check(self, sess: UpWebSession):
+        """This will call ``check`` api of Qzone, and receive result about
+        whether this login needs a captcha, sms verification, etc.
+
+        :param sess: Session got from :meth:`~UpWebLogin.new`.
+        """
         data = {
             "regmaster": "",
             "pt_tea": 2,
@@ -217,7 +222,7 @@ class UpWebLogin(LoginBase[UpWebSession], _UpHookMixin):
         data.update(const)
         return data
 
-    async def try_login(self, sess: UpWebSession):
+    async def try_login(self, sess: UpWebSession) -> LoginResp:
         """
         Check if current session meets the login condition.
         It takes a session object and returns response of this try.
