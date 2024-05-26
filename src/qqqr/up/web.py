@@ -104,15 +104,10 @@ class _UpHookMixin:
 
 class UpWebLogin(LoginBase[UpWebSession], _UpHookMixin):
     """
-    .. versionchanged:: 0.12.4
-
-        `TeaEncoder` is used as the default password encoder. A `legacy_encoder` paramater is added to force
-        using the former `NodeEncoder`. It can also be configured by set :envvar:`AIOQZONE_PWDENCODER` to "node".
-        Note that the paramater in code, i.e. `legacy_encoder`, takes precedence.
-
     .. versionchanged:: 0.13.0.dev1
 
-        `TeaEncoder` is the only encoder. ``NodeEncoder`` is removed.
+        :class:`~qqqr.up.encrypt.TeaEncoder` is the unique :class:`~qqqr.up.encrypt.PasswdEncoder`.
+        ``NodeEncoder`` is removed.
     """
 
     def __init__(

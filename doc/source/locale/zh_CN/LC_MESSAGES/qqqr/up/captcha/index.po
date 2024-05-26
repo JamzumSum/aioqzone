@@ -1,0 +1,101 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2022-2024, aioqzone
+# This file is distributed under the same license as the aioqzone package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: aioqzone \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-26 21:11+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/qqqr/up/captcha/index.rst:3
+msgid "Solving Captcha"
+msgstr ""
+
+#: ../../source/qqqr/up/captcha/index.rst:7
+msgid "Basic Concepts"
+msgstr ""
+
+#: ../../source/qqqr/up/captcha/index.rst:9
+msgid ""
+"Captcha solving follows the concepts we've introduced in :ref:`Basic Concepts <QQQR Concepts>`. "
+"The captcha verifying logic also keeps code and data seperated by design."
+msgstr ""
+
+#: ../../source/qqqr/up/captcha/index.rst:12
+msgid ":class:`Captcha` holds the captcha solving and verifying procedure."
+msgstr ""
+
+#: ../../source/qqqr/up/captcha/index.rst:14
+msgid ""
+"Each captcha has its own ``xxCaptchaSession`` inherited from :class:`BaseTcaptchaSession` which "
+"saves data received from the server."
+msgstr ""
+
+#: ../../source/qqqr/up/captcha/index.rst:17
+msgid ""
+"All \"solving\" are hidden behind :external+tylisten:mod:`tylisten` hook framework. These hooks "
+"serve as placeholders in the verify processes. Downstreams are free to register their "
+"implementations to these hooks. We unify machine and human solutions by defining the hook "
+"interfaces while not have to maintain any builtin solutuion, thus ensure the maintainability."
+msgstr ""
+
+#: ../../source/qqqr/up/captcha/index.rst:25
+msgid "Supported Captcha"
+msgstr ""
+
+#: ../../source/qqqr/up/captcha/index.rst:27
+msgid "Currently we support two kinds of captcha:"
+msgstr ""
+
+#: ../../source/qqqr/up/captcha/index.rst:29
+msgid "Slide captcha"
+msgstr ""
+
+#: ../../source/qqqr/up/captcha/index.rst:33
+msgid ""
+"Since slide captcha rarely present since 2023, to keep maintainability of this package while "
+"reducing the necessary dependencies, we moved the slide-captcha machine solution into an "
+"independent package `slide-tc`_. This package is an extra dependency of QQQR (aioqzone)."
+msgstr ""
+
+#: ../../source/qqqr/up/captcha/index.rst:37
+msgid "Select captcha"
+msgstr ""
+
+#: ../../source/qqqr/up/captcha/index.rst:42
+msgid "Table of Contents"
+msgstr ""
+
+#: ../../source/qqqr/up/captcha/index.rst:53
+msgid "Links"
+msgstr ""
+
+#: ../../source/qqqr/up/captcha/index.rst:55
+msgid "The :mod:`captcha` package relys on aioqzone dependency toolchains:"
+msgstr ""
+
+#: ../../source/qqqr/up/captcha/index.rst:57
+msgid "`pychaosvm`_: a chaosvm executor in Python."
+msgstr ""
+
+#: ../../source/qqqr/up/captcha/index.rst:61
+msgid ""
+"Formerly we use ``NodeJS`` to encode password and execute chaosvm. Now these are replaced by "
+":class:`~qqqr.up.encrypt.TeaEncoder` and `pychaosvm`_."
+msgstr ""
+
+#: ../../source/qqqr/up/captcha/index.rst:64
+msgid ":external:mod:`tylisten`: a hook framework with async support."
+msgstr ""
