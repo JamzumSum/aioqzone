@@ -1,0 +1,78 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2022-2024, aioqzone
+# This file is distributed under the same license as the aioqzone package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: aioqzone \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-26 21:19+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/aioqzone/reference.rst:2
+msgid "References"
+msgstr ""
+
+#: ../../source/aioqzone/reference.rst:6
+msgid "Terms"
+msgstr ""
+
+#: ../../source/aioqzone/reference.rst:8
+msgid "Here we will explain some common used abbreviation and alias in aioqzone."
+msgstr ""
+
+#: ../../source/aioqzone/reference.rst:11
+msgid "abstime"
+msgstr ""
+
+#: ../../source/aioqzone/reference.rst:13
+msgid ""
+"A timestamp represents when the feed is created. All feeds have this field. If not, generate a "
+"persudo one is easy."
+msgstr ""
+
+#: ../../source/aioqzone/reference.rst:16
+msgid "In Qzone interface, this is called ``created_time`` sometimes."
+msgstr ""
+
+#: ../../source/aioqzone/reference.rst:17
+msgid "appid"
+msgstr ""
+
+#: ../../source/aioqzone/reference.rst:19
+msgid ""
+"Specifies where the feed is created. For example, the app id of \"emotion\" is 311, 202 means "
+"shares from Wechat or other apps."
+msgstr ""
+
+#: ../../source/aioqzone/reference.rst:21
+msgid "fid"
+msgstr ""
+
+#: ../../source/aioqzone/reference.rst:23
+msgid ""
+"Means \"feed id\". All \"emotion\" feed has a **unique** fid, but other app such as shares do "
+"not. For those apps, their `fid` field might be a fixed string."
+msgstr ""
+
+#: ../../source/aioqzone/reference.rst:26
+msgid "In Qzone interface, `fid` is also named as ``tid``, ``feedkey``, etc."
+msgstr ""
+
+#: ../../source/aioqzone/reference.rst:27
+msgid "uin"
+msgstr ""
+
+#: ../../source/aioqzone/reference.rst:29
+msgid "Known as ``QQ``, which identifies an account."
+msgstr ""

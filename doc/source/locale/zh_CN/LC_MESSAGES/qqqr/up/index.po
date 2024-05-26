@@ -8,15 +8,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aioqzone \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-13 10:13+0800\n"
+"POT-Creation-Date: 2024-05-26 21:18+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.10.3\n"
+"Generated-By: Babel 2.15.0\n"
 
-#: ../../source/qqqr/up/index.rst:2
+#: ../../source/qqqr/up/index.rst:3
 msgid "Uin-Password Login"
 msgstr "用户名-密码登录"
+
+#: ../../source/qqqr/up/index.rst:13
+msgid "Encrypt and Captcha"
+msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aioqzone \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-25 15:19+0800\n"
+"POT-Creation-Date: 2024-05-26 21:18+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,20 +17,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.15.0\n"
 
-#: ../../source/qqqr/up/login.rst:2
+#: ../../source/qqqr/up/login.rst:3
 msgid "UpLogin and UpSession"
 msgstr ""
 
 #: of qqqr.up.web.UpWebLogin:3
 msgid ""
-"`TeaEncoder` is used as the default password encoder. A `legacy_encoder` paramater is added to "
-"force using the former `NodeEncoder`. It can also be configured by set "
-":envvar:`AIOQZONE_PWDENCODER` to \"node\". Note that the paramater in code, i.e. "
-"`legacy_encoder`, takes precedence."
-msgstr ""
-
-#: of qqqr.up.web.UpWebLogin:9
-msgid "`TeaEncoder` is the only encoder. ``NodeEncoder`` is removed."
+":class:`~qqqr.up.encrypt.TeaEncoder` is the unique :class:`~qqqr.up.encrypt.PasswdEncoder`. "
+"``NodeEncoder`` is removed."
 msgstr ""
 
 #: of qqqr.up.web.UpWebLogin.new:1
@@ -105,147 +99,3 @@ msgstr ""
 #: of qqqr.up.web.UpWebLogin.login:1
 msgid "Block until cookie is received."
 msgstr ""
-
-#~ msgid "Parameters"
-#~ msgstr ""
-
-#~ msgid "Returns"
-#~ msgstr ""
-
-#~ msgid "Raises"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "The captcha function is used to build and "
-#~ "cache a :class:`Captcha` instance. It takes in a"
-#~ " string, which is the session id got from "
-#~ ":meth:`.new`, and returns the :class:`Captcha` instance."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "The passVC function is used to pass the "
-#~ "verification tcaptcha. It is called when "
-#~ ":meth:`.try_login` returns a :obj:`StatusCode.NeedCaptcha` code."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "The `captcha` function is used to build a "
-#~ ":class:`Captcha` instance. It takes in a string, "
-#~ "which is the session id got from :meth:`.new`, "
-#~ "and returns the :class:`Captcha` instance."
-#~ msgstr ""
-
-#~ msgid "参数"
-#~ msgstr ""
-
-#~ msgid "Pass the session id to the captcha function"
-#~ msgstr ""
-
-#~ msgid "返回"
-#~ msgstr ""
-
-#~ msgid "An instance of the captcha class"
-#~ msgstr ""
-
-#~ msgid "Block until cookie is received."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Create a :class:`UpSession`. This will call `check` "
-#~ "api of Qzone, and receive result about whether "
-#~ "this login needs a captcha, sms verification, etc."
-#~ msgstr ""
-
-#~ msgid "抛出"
-#~ msgstr ""
-
-#~ msgid "a up login session"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "The `pass_vc` function is used to pass the "
-#~ "verification tcaptcha. It is called when "
-#~ ":meth:`.try_login` returns a :obj:`StatusCode.NeedCaptcha` code."
-#~ msgstr ""
-
-#~ msgid "the session object"
-#~ msgstr ""
-
-#~ msgid "The session with :obj:`~UpSession.verify_rst` is set."
-#~ msgstr ""
-
-#~ msgid "Send verify sms (to get dynamic code)"
-#~ msgstr ""
-
-#~ msgid "The up login session to send sms code"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Check if current session meets the login condition."
-#~ " It takes a session object and returns response"
-#~ " of this try."
-#~ msgstr ""
-
-#~ msgid "Store the session information"
-#~ msgstr ""
-
-#~ msgid "A login response"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "TeaEncoder is used as the default password encoder."
-#~ " A `legacy_encoder` paramater is added to force "
-#~ "using the former `NodeEncoder`. It can also be "
-#~ "configured by set :env:`AIOQZONE_PWDENCODER` to \"node\". "
-#~ "Note that the paramater in code, i.e. "
-#~ "`legacy_encoder`, takes precedence."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "TeaEncoder is used as the default password encoder."
-#~ " A `legacy_encoder` paramater is added to force "
-#~ "using the former `NodeEncoder`. It can also be "
-#~ "configured by set :envvar:`AIOQZONE_PWDENCODER` to \"node\"."
-#~ " Note that the paramater in code, i.e. "
-#~ "`legacy_encoder`, takes precedence."
-#~ msgstr ""
-
-#~ msgid "The session with :obj:`~UpWebSession.verify_rst` is set."
-#~ msgstr ""
-
-#~ msgid "if cannot solve this captcha"
-#~ msgstr ""
-
-#~ msgid "返回类型"
-#~ msgstr ""
-
-#~ msgid ":py:data:`~typing.Optional`\\[:py:class:`~qqqr.up.web.UpWebSession`]"
-#~ msgstr ""
-
-#~ msgid "The session with :obj:`~UpWebSession.verify_rst` is set, or None if :exc:`ImportError`."
-#~ msgstr ""
-
-#~ msgid "An instance of the captcha class, or None if dependency not installed."
-#~ msgstr ""
-
-#~ msgid "a js fingerprint. :rtype: :py:class:`str`"
-#~ msgstr ""
-
-#~ msgid "https://github.com/fingerprintjs/fingerprintjs"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Create a :class:`UpWebSession`. This will call `check`"
-#~ " api of Qzone, and receive result about whether"
-#~ " this login needs a captcha, sms verification, "
-#~ "etc."
-#~ msgstr ""
-
-#~ msgid "Session got from :meth:`.new`."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "This will call `check` api of Qzone, and "
-#~ "receive result about whether this login needs a "
-#~ "captcha, sms verification, etc."
-#~ msgstr ""

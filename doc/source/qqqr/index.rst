@@ -4,6 +4,8 @@ QQQR
 
 .. automodule:: qqqr
 
+.. _QQQR Concepts:
+
 -------------------------
 Basic Concepts
 -------------------------
@@ -21,9 +23,9 @@ Basic Concepts
   :class:`~qqqr.base.LoginSession`.
 
 
---------------------
-Contents
---------------------
+--------------------------
+Table of Contents
+--------------------------
 
 .. toctree::
     :maxdepth: 2
@@ -34,11 +36,11 @@ Contents
     up/index
 
 
-----------------------
+^^^^^^^^^^^^^^^^^^^^^^
 Miscellaneous
-----------------------
+^^^^^^^^^^^^^^^^^^^^^^
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     jsjson
     exception
