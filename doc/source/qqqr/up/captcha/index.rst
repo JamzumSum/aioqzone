@@ -9,10 +9,10 @@ Basic Concepts
 Captcha solving follows the concepts we've introduced in :ref:`Basic Concepts <QQQR Concepts>`.
 The captcha verifying logic also keeps code and data seperated by design.
 
-- :class:`Captcha` holds the captcha solving and verifying procedure.
+- :class:`~qqqr.up.captcha.Captcha` holds the captcha solving and verifying procedure.
 
-- Each captcha has its own ``xxCaptchaSession`` inherited from :class:`BaseTcaptchaSession`
-  which saves data received from the server.
+- Each captcha has its own ``xxCaptchaSession`` inherited from
+  :class:`~qqqr.up.captcha.capsess.BaseTcaptchaSession` which saves data received from the server.
 
 - All "solving" are hidden behind :external+tylisten:mod:`tylisten` hook framework. These
   hooks serve as placeholders in the verify processes. Downstreams are free to register their

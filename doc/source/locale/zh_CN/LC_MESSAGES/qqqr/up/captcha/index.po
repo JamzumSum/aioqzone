@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aioqzone \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-26 21:11+0800\n"
+"POT-Creation-Date: 2024-06-22 17:42+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: JamzumSum <zzzzss990315@gmail.com>\n"
 "Language: zh_CN\n"
 "Language-Team: zh_CN <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -21,27 +21,28 @@ msgstr ""
 
 #: ../../source/qqqr/up/captcha/index.rst:3
 msgid "Solving Captcha"
-msgstr ""
+msgstr "求解验证码"
 
 #: ../../source/qqqr/up/captcha/index.rst:7
 msgid "Basic Concepts"
-msgstr ""
+msgstr "基本概念"
 
 #: ../../source/qqqr/up/captcha/index.rst:9
 msgid ""
 "Captcha solving follows the concepts we've introduced in :ref:`Basic Concepts <QQQR Concepts>`. "
 "The captcha verifying logic also keeps code and data seperated by design."
-msgstr ""
+msgstr "验证码的求解遵循之前在 :ref:`基本概念 <QQQR Concepts>` 中介绍的准则，即从设计上将验证中产生的数据与代码逻辑分离。"
 
 #: ../../source/qqqr/up/captcha/index.rst:12
-msgid ":class:`Captcha` holds the captcha solving and verifying procedure."
-msgstr ""
+msgid ":class:`~qqqr.up.captcha.Captcha` holds the captcha solving and verifying procedure."
+msgstr ":class:`~qqqr.up.captcha.Captcha` 类包含验证码求解和验证流程。"
 
 #: ../../source/qqqr/up/captcha/index.rst:14
 msgid ""
-"Each captcha has its own ``xxCaptchaSession`` inherited from :class:`BaseTcaptchaSession` which "
-"saves data received from the server."
-msgstr ""
+"Each captcha has its own ``xxCaptchaSession`` inherited from "
+":class:`~qqqr.up.captcha.capsess.BaseTcaptchaSession` which saves data received from the server."
+msgstr "每次验证都产生一个继承 :class:`~qqqr.up.captcha.capsess.BaseTcaptchaSession` "
+"的 ``xxCaptchaSession``，它保存了验证服务器发送的数据。"
 
 #: ../../source/qqqr/up/captcha/index.rst:17
 msgid ""
@@ -50,18 +51,20 @@ msgid ""
 "implementations to these hooks. We unify machine and human solutions by defining the hook "
 "interfaces while not have to maintain any builtin solutuion, thus ensure the maintainability."
 msgstr ""
+"所有的验证码求解都隐藏在了 :external+tylisten:mod:`tylisten` "
+"回调框架后。验证过程中调用的是对应的“占位符”，由下游应用为这些占位符注册相应的行为。我们使用同样的接口定义每种行为，无论下游开发者选择机器求解或是人力求解。此外程序中也不再需要任何内建的验证码求解算法，从而提高了程序的可维护性。"
 
 #: ../../source/qqqr/up/captcha/index.rst:25
 msgid "Supported Captcha"
-msgstr ""
+msgstr "支持的验证码"
 
 #: ../../source/qqqr/up/captcha/index.rst:27
 msgid "Currently we support two kinds of captcha:"
-msgstr ""
+msgstr "目前支持两种验证码："
 
 #: ../../source/qqqr/up/captcha/index.rst:29
 msgid "Slide captcha"
-msgstr ""
+msgstr "滑块验证码"
 
 #: ../../source/qqqr/up/captcha/index.rst:33
 msgid ""
@@ -69,10 +72,12 @@ msgid ""
 "reducing the necessary dependencies, we moved the slide-captcha machine solution into an "
 "independent package `slide-tc`_. This package is an extra dependency of QQQR (aioqzone)."
 msgstr ""
+"由于2023年后滑块验证码出现的频率有一定下降，同时为了减少不必要的依赖项、提高代码的可维护性，我们将滑块验证码的机器求解方案分离到了一个独立的包 `slide-tc`_ 。它是 QQQR "
+"(aioqzone) 的额外依赖项。"
 
 #: ../../source/qqqr/up/captcha/index.rst:37
 msgid "Select captcha"
-msgstr ""
+msgstr "图片点击验证码"
 
 #: ../../source/qqqr/up/captcha/index.rst:42
 msgid "Table of Contents"
@@ -80,22 +85,24 @@ msgstr ""
 
 #: ../../source/qqqr/up/captcha/index.rst:53
 msgid "Links"
-msgstr ""
+msgstr "相关链接"
 
 #: ../../source/qqqr/up/captcha/index.rst:55
 msgid "The :mod:`captcha` package relys on aioqzone dependency toolchains:"
-msgstr ""
+msgstr ":mod:`captcha` 包依赖于下列 aioqzone 工具链："
 
 #: ../../source/qqqr/up/captcha/index.rst:57
 msgid "`pychaosvm`_: a chaosvm executor in Python."
-msgstr ""
+msgstr "`pychaosvm`_: 使用 Python 执行混沌虚拟机。"
 
 #: ../../source/qqqr/up/captcha/index.rst:61
 msgid ""
 "Formerly we use ``NodeJS`` to encode password and execute chaosvm. Now these are replaced by "
 ":class:`~qqqr.up.encrypt.TeaEncoder` and `pychaosvm`_."
 msgstr ""
+"在此前的版本中，我们使用 ``NodeJS`` 来编码密码以及执行混沌虚拟机。如今我们使用 Python 实现的 :class:`~qqqr.up.encrypt.TeaEncoder` 和 "
+"`pychaosvm`_ 来实现这些功能。"
 
 #: ../../source/qqqr/up/captcha/index.rst:64
 msgid ":external:mod:`tylisten`: a hook framework with async support."
-msgstr ""
+msgstr ":external:mod:`tylisten`: 异步回调框架。"
