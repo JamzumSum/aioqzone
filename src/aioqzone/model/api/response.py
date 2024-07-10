@@ -55,18 +55,17 @@ class QzoneResponse(BaseModel):
 
         :return: Self
         """
-        if cls._errno_key and cls._msg_key:
 
-            class response_header(BaseModel):
-                status: int = Field(validation_alias=cls._errno_key)
-                message: str = Field(default="", validation_alias=cls._msg_key)
+        class response_header(BaseModel):
+            status: int = Field(default=0, validation_alias=cls._errno_key)
+            message: str = Field(default="", validation_alias=cls._msg_key)
 
-            header = response_header.model_validate(obj)
-            if header.status != 0:
-                if header.message:
-                    raise QzoneError(header.status, header.message, robj=header)
-                else:
-                    raise QzoneError(header.status, robj=header)
+        header = response_header.model_validate(obj)
+        if header.status != 0:
+            if header.message:
+                raise QzoneError(header.status, header.message, robj=obj)
+            else:
+                raise QzoneError(header.status, robj=obj)
 
         if cls._data_key is None:
             return cls.model_validate(obj)
@@ -239,7 +238,8 @@ class DeleteUgcResp(QzoneResponse):
 
 
 class UploadPicResponse(QzoneResponse):
-    _errno_key = None
+    _data_key = None
+
     filelen: int
     filemd5: str
 
