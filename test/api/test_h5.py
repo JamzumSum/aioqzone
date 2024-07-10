@@ -45,10 +45,30 @@ async def flow_wo_check(api: QzoneH5API):
     assert api.qzone_tokens[hostuin]
 
 
+async def upload_photos(api: QzoneH5API):
+
+    from PIL import Image as image
+
+    from aioqzone.model.api import PhotoData
+
+    with image.open(r"E:\Pictures\Saved Pictures\c60096b17dfe608767846f8bae4436de.png") as im:
+        # im.save(buf, format="PNG")
+        upp = await api.upload_pic(im.tobytes(), im.width, im.height, quality=80)
+
+    prp = await api.preupload_photos([upp], upload_hd=False)
+    info = prp.photos
+    assert info
+
+    return [PhotoData.from_PicInfo(i) for i in info]
+
+
 async def qzone_workflow(api: QzoneH5API):
     await flow_wo_check(api)
+    picdata = await upload_photos(api)
 
-    feed = await api.publish_mood(MOOD_TEXT, sync_weibo=False, ugc_right=UgcRight.self)
+    feed = await api.publish_mood(
+        MOOD_TEXT, photos=picdata, sync_weibo=False, ugc_right=UgcRight.self
+    )
     ownuin, appid = api.login.uin, 311
     unikey = LikeData.persudo_unikey(appid, ownuin, feed.fid)
 
