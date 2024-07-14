@@ -3,8 +3,7 @@ from base64 import b64encode
 from math import floor
 from time import time
 
-from pydantic import Base64Encoder, BaseModel, EncodedBytes, Field, field_serializer
-from typing_extensions import Annotated
+from pydantic import BaseModel, Field, field_serializer
 
 from aioqzone.utils.time import time_ms
 
@@ -164,7 +163,7 @@ class DeleteUgcParams(QzoneRequestParams):
 
 class UploadPicParams(QzoneRequestParams):
     uin_fields = ("uin",)
-    picture: Annotated[bytes, EncodedBytes(Base64Encoder)]
+    picture: bytes
     hd_height: int
     hd_width: int
     hd_quality: int = 70
@@ -179,6 +178,10 @@ class UploadPicParams(QzoneRequestParams):
     Exif_CameraMaker: str = ""
     Exif_CameraModel: str = ""
     Exif_Time: str = ""
+
+    @field_serializer("picture", return_type=str)
+    def b64_picture(self, picture: t.ByteString) -> str:
+        return b64encode(picture).decode()
 
 
 class PhotosPreuploadParams(QzoneRequestParams):
