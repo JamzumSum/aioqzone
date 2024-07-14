@@ -46,14 +46,20 @@ async def flow_wo_check(api: QzoneH5API):
 
 
 async def upload_photos(api: QzoneH5API):
+    from io import BytesIO
 
     from PIL import Image as image
 
     from aioqzone.model.api import PhotoData
 
-    with image.open(r"E:\Pictures\Saved Pictures\c60096b17dfe608767846f8bae4436de.png") as im:
-        # im.save(buf, format="PNG")
-        upp = await api.upload_pic(im.tobytes(), im.width, im.height, quality=80)
+    # 腾讯原创馆
+    async with api.client.get(
+        "https://qlogo4.store.qq.com/qzone/949589999/949589999/100?1558079493"
+    ) as r:
+        im = BytesIO(await r.content.read())
+        buf = BytesIO()
+        image.open(im).save(buf, "JPEG", quality=70)
+        upp = await api.upload_pic(buf.getvalue(), im.width, im.height, quality=70)
 
     prp = await api.preupload_photos([upp], upload_hd=False)
     info = prp.photos
