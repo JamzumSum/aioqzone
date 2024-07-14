@@ -39,7 +39,7 @@ __all__ = [
 
 class QzoneResponse(BaseModel):
     _errno_key: t.ClassVar[t.Union[str, AliasPath, AliasChoices, None]] = AliasChoices(
-        "code", "ret", "err"
+        "code", "ret", "err", "error"
     )
     _msg_key: t.ClassVar[t.Union[str, AliasPath, AliasChoices, None]] = AliasChoices(
         "message", "msg"
@@ -207,7 +207,7 @@ class ProfilePagePesp(QzoneResponse):
         return cls(
             info=QzoneInfo.from_response_object(obj["info"]),  # type: ignore
             feedpage=ProfileResp.from_response_object(obj["feedpage"]),  # type: ignore
-            qzonetoken=obj["qzonetoken"],
+            qzonetoken=obj["qzonetoken"],  # type: ignore
         )
 
 
@@ -250,7 +250,9 @@ class UploadPicResponse(QzoneResponse):
         return json_loads(m.group(1))
 
 
-class PicInfo(BaseModel):
+class PicInfo(QzoneResponse):
+    _data_key = None
+
     pre: HttpUrl
     url: HttpUrl
     sloc: str
@@ -261,11 +263,14 @@ class PicInfo(BaseModel):
 
 
 class PhotosPreuploadResponse(QzoneResponse):
-    _errno_key = None
+    _data_key = None
     photos: t.List[PicInfo] = Field(default_factory=list)
 
     @classmethod
     async def response_to_object(cls, response: ClientResponse):
         m = response_callback.search(await response.text())
         assert m
-        return dict(photos=json_loads(m.group(1)))
+
+        picinfos = json_loads(m.group(1))
+        assert isinstance(picinfos, list)
+        return dict(photos=[PicInfo.from_response_object(info["picinfo"]) for info in picinfos])
