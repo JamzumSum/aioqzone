@@ -33,6 +33,7 @@ __all__ = [
     "UploadPicResponse",
     "PhotosPreuploadResponse",
     "FeedData",
+    "PicInfo",
     "ProfileFeedData",
 ]
 
@@ -273,4 +274,4 @@ class PhotosPreuploadResponse(QzoneResponse):
 
         picinfos = json_loads(m.group(1))
         assert isinstance(picinfos, list)
-        return dict(photos=[PicInfo.from_response_object(info["picinfo"]) for info in picinfos])
+        return dict(photos=[PicInfo.from_response_object(info["picinfo"]) for info in picinfos])  # type: ignore

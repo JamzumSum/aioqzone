@@ -46,34 +46,25 @@ async def flow_wo_check(api: QzoneH5API):
 
 
 async def upload_photos(api: QzoneH5API):
-    from io import BytesIO
-
-    from PIL import Image as image
-
     from aioqzone.model.api import PhotoData
 
     # 腾讯原创馆
     async with api.client.get(
         "https://qlogo4.store.qq.com/qzone/949589999/949589999/100?1558079493"
     ) as r:
-        im = BytesIO(await r.content.read())
-        buf = BytesIO()
-        image.open(im).save(buf, "JPEG", quality=70)
-        upp = await api.upload_pic(buf.getvalue(), im.width, im.height, quality=70)
+        upp = await api.upload_pic(await r.content.read())
 
     prp = await api.preupload_photos([upp], upload_hd=False)
-    info = prp.photos
-    assert info
-
-    return [PhotoData.from_PicInfo(i) for i in info]
+    assert prp.photos
+    return prp.photos
 
 
 async def qzone_workflow(api: QzoneH5API):
     await flow_wo_check(api)
-    picdata = await upload_photos(api)
+    info = await upload_photos(api)
 
     feed = await api.publish_mood(
-        MOOD_TEXT, photos=picdata, sync_weibo=False, ugc_right=UgcRight.self
+        MOOD_TEXT, photos=info, sync_weibo=False, ugc_right=UgcRight.self
     )
     ownuin, appid = api.login.uin, 311
     unikey = LikeData.persudo_unikey(appid, ownuin, feed.fid)
