@@ -1,9 +1,12 @@
 import typing as t
 from base64 import b64encode
+from io import BytesIO
 from math import floor
+from os import PathLike
 from time import time
 
-from pydantic import BaseModel, Field, field_serializer
+from pydantic import BaseModel, Field, field_serializer, field_validator
+from typing_extensions import Buffer
 
 from aioqzone.utils.time import time_ms
 
@@ -182,6 +185,22 @@ class UploadPicParams(QzoneRequestParams):
     @field_serializer("picture", return_type=str)
     def b64_picture(self, picture: t.ByteString) -> str:
         return b64encode(picture).decode()
+
+    @classmethod
+    def from_image(cls, image_file: t.Union[str, PathLike, t.IO[bytes]], quality=70):
+        import PIL.Image as image
+
+        with image.open(image_file) as f:
+            buf = BytesIO()
+            f.save(buf, "JPEG", quality=quality)
+            return cls(
+                picture=buf.getvalue(), hd_height=f.height, hd_width=f.width, hd_quality=quality
+            )
+
+    @classmethod
+    def from_bytes(cls, image_bytes: Buffer, quality=70):
+        buf = BytesIO(image_bytes)
+        return cls.from_image(buf, quality=quality)
 
 
 class PhotosPreuploadParams(QzoneRequestParams):

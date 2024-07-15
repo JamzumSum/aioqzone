@@ -1,4 +1,5 @@
 import logging
+from os import PathLike
 
 from pydantic import ValidationError
 from tenacity import AsyncRetrying, TryAgain, after_log, stop_after_attempt
@@ -177,7 +178,7 @@ class QzoneH5API:
     async def publish_mood(
         self,
         content: str,
-        photos: t.Optional[t.List[PhotoData]] = None,
+        photos: t.Optional[t.Sequence[t.Union[PhotoData, PicInfo]]] = None,
         sync_weibo=False,
         ugc_right: UgcRight = UgcRight.all,
     ) -> PublishMoodResp:
@@ -189,21 +190,47 @@ class QzoneH5API:
         :param ugc_right: access right, default to "Available to Everyone".
         """
         photos = photos or []
-        return await self.call(PublishMoodApi(params=PublishMoodParams.model_validate(locals())))
+        return await self.call(
+            PublishMoodApi(params=PublishMoodParams.model_validate(locals(), from_attributes=True))
+        )
 
     async def upload_pic(
-        self, picture: bytes, width: int, height: int, quality: int
+        self,
+        picture: t.Union[bytes, str, PathLike, t.IO[bytes]],
+        width: t.Optional[int] = None,
+        height: t.Optional[int] = None,
+        quality: t.Union[int, float] = 70,
     ) -> UploadPicResponse:
-        return await self.call(
-            UploadPicApi(
-                params=UploadPicParams(
-                    picture=picture,
-                    hd_width=width,
-                    hd_height=height,
-                    hd_quality=quality,
-                ),
+        """
+        .. versionchanged:: 1.8.5
+
+            In version <= 1.8.4, user is responsible for compressing a image and this api
+            encode the :obj:`picture` with Base64 and send it to Qzone _ASIS_.
+
+            Since version 1.8.5, we recognize a compressed image by :obj:`width` and :obj:`height`
+            parameters. If :obj:`width` and :obj:`height` is provided, this API will keep the former
+            behavior. If not provided, the image will be compressed with the given quality.
+        """
+        if isinstance(quality, float):
+            if quality < 1:
+                quality *= 100
+            quality = int(quality)
+
+        assert 0 < quality <= 100
+
+        if isinstance(picture, (str, PathLike, t.IO)):
+            params = UploadPicParams.from_image(picture, quality)
+        elif (width is None) or (height is None):
+            params = UploadPicParams.from_bytes(picture, quality)
+        else:
+            params = UploadPicParams(
+                picture=picture,
+                hd_width=width,
+                hd_height=height,
+                hd_quality=quality,
             )
-        )
+
+        return await self.call(UploadPicApi(params=params))
 
     async def preupload_photos(
         self, upload_pics: t.List[UploadPicResponse], cur_num=0, upload_hd=False
