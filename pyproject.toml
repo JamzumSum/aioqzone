@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aioqzone"
-version = "1.8.5.dev1"
+version = "1.8.6.dev1"
 description = "A Python wrapper for Qzone login and H5 APIs."
 authors = ["aioqzone <zzzzss990315@gmail.com>"]
 license = "AGPL-3.0"
@@ -28,15 +28,15 @@ exclude = ["*.js"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-aiohttp = "^3.8.5"
-pydantic = "^2.0.3"
-pydantic-settings = "^2.0.2"
+aiohttp = "^3.9.0"
+pydantic = "^2.5.0"
+pydantic-settings = "^2.2.0"
 rsa = "^4.8"
-tenacity = "^8.2.3"
+tenacity = ">=8.2.3,<10.0.0"
 exceptiongroup = "^1.1.1"
-tylisten = "^2.1.3"
-pillow = "^10.0.1"
-pychaosvm = { version = ">=0.3.4,<0.5.0", source = "aioqzone-index" }
+tylisten = "^2.1.4"
+pillow = "^10.1.0"
+pychaosvm = { version = "~0.4.0", source = "aioqzone-index" }
 slide-tc = {version = "~0.1.1", optional = true, source = "aioqzone-index" }
 
 [tool.poetry.extras]

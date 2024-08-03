@@ -8,6 +8,7 @@ from pydantic import (
     BaseModel,
     Field,
     HttpUrl,
+    RootModel,
     field_validator,
     model_validator,
 )
@@ -97,21 +98,27 @@ class PhotoUrl(BaseModel):
             and (o.height == self.height)
         )
 
+    @property
+    def area(self):
+        return self.height * self.width
 
-class PhotoUrls(BaseModel):
-    urls: t.Set[PhotoUrl]
 
+class PhotoUrls(RootModel[t.Set[PhotoUrl]]):
     @model_validator(mode="before")
     def unpack_urls(cls, v: dict):
-        return dict(urls=list(v.values()))
+        return list(v.values())
 
     @property
     def largest(self) -> PhotoUrl:
-        return max(self.urls, key=lambda p: p.height * p.width)
+        return max(self.root, key=lambda p: p.area)
 
     @property
     def smallest(self) -> PhotoUrl:
-        return min(self.urls, key=lambda p: p.height * p.width)
+        return min(self.root, key=lambda p: p.area)
+
+    @property
+    def urls(self):
+        return self.root
 
 
 class FeedVideo(BaseModel):
