@@ -5,7 +5,7 @@ aioqzone is a python package handling Qzone web login and wrapping some common Q
 [![python](https://img.shields.io/pypi/pyversions/aioqzone?logo=python&logoColor=white)][home]
 [![version](https://img.shields.io/pypi/v/aioqzone?logo=python)][pypi]
 [![style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![discuss](https://img.shields.io/badge/dynamic/xml?style=social&logo=telegram&label=Discuss&query=%2F%2Fdiv%5B%40class%3D%22tgme_page_extra%22%5D&url=https%3A%2F%2Ft.me%2Faioqzone_chatroom)](https://t.me/aioqzone_chatroom)
+[![discuss](https://img.shields.io/endpoint?label=Discuss&style=social&url=https%3A%2F%2Ftg.sumanjay.workers.dev%2Faioqzone_chatroom)](https://t.me/aioqzone_chatroom)
 
 English | [简体中文](README.md)
 
@@ -58,7 +58,7 @@ You can look for these repos for examples in practice.
 ## License
 
 ```
-Copyright (C) 2022-2023 aioqzone.
+Copyright (C) 2022-2024 aioqzone.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published
