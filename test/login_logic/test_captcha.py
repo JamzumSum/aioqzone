@@ -103,4 +103,4 @@ class TestCaptcha:
             assert r.ticket
             return
 
-        pytest.fail(msg=captcha_status_description.get(r.code))
+        pytest.fail(captcha_status_description.get(r.code, ""))

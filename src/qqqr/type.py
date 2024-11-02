@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 from pydantic import BaseModel
 
-if sys.version_info >= (3, 9):
+if sys.version_info >= (3, 10):
     frozen_args = dict(frozen=True, slots=True)
 else:
     frozen_args = dict(frozen=True)
