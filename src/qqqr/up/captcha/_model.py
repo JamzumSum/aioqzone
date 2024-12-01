@@ -1,6 +1,6 @@
-from typing import List, Optional
+import typing as t
 
-from pydantic import BaseModel, Field
+from pydantic import AliasPath, BaseModel, Field
 
 
 class PowCfg(BaseModel):
@@ -15,12 +15,25 @@ class CommonCaptchaConf(BaseModel):
     """relative path to get tdc.js"""
 
 
+class CommonClickConf(BaseModel):
+    data_type: str = Field(validation_alias=AliasPath("data_type", 0))
+    mark_style: str
+
+
+class CommonBgElmConf(BaseModel):
+    cfg: CommonClickConf = Field(validation_alias="click_cfg")
+
+
+class CommonRender(BaseModel):
+    bg: CommonBgElmConf = Field(validation_alias="bg_elem_cfg")
+
+
 class Sprite(BaseModel):
     """Represents a sprite from a source material."""
 
-    size_2d: List[int]
+    size_2d: t.List[int]
     """sprite size (w, h)"""
-    sprite_pos: List[int]
+    sprite_pos: t.List[int]
     """sprite position on material (x, y)"""
 
     @property
@@ -37,37 +50,13 @@ class Sprite(BaseModel):
         return (l, t, l + self.width, l + self.height)
 
 
-class ClickCfg(BaseModel):
-    mark_style: str
-    data_type: List[str]
-
-
-class MoveCfg(BaseModel):
-    track_limit: str
-    move_factor: List[int]
-    data_type: Optional[List[str]] = None
-
-
-class FgElemCfg(Sprite):
-    id: int
-    init_pos: List[int]
-    move_cfg: Optional[MoveCfg] = None
-
-
-class FgBindingCfg(BaseModel):
-    master: int
-    slave: int
-    bind_type: str
-    bind_factor: int
-
-
 class CaptchaData(BaseModel):
     common: CommonCaptchaConf = Field(alias="comm_captcha_cfg")
-    render: dict = Field(alias="dyn_show_info")
+    render: dict[str, t.Any] = Field(alias="dyn_show_info")
 
 
 class PrehandleResp(BaseModel):
-    captcha: CaptchaData = Field(alias="data", default=None)
+    captcha: t.Optional[CaptchaData] = Field(alias="data", default=None)
     sess: str
 
     capclass: int = 0

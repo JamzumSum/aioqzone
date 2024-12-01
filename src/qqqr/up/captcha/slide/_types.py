@@ -4,13 +4,13 @@ import typing as t
 from contextlib import suppress
 from random import choices, randint
 
-from pydantic import BaseModel, Field, ValidationError
+from pydantic import AliasPath, BaseModel, Field
 
 from qqqr.message import solve_slide_captcha
 from qqqr.utils.iter import first, firstn
 from qqqr.utils.net import ClientAdapter
 
-from .._model import FgBindingCfg, FgElemCfg, Sprite
+from .._model import CommonBgElmConf, CommonRender, Sprite
 from ..capsess import BaseTcaptchaSession
 from ..pil_utils import *
 
@@ -58,14 +58,33 @@ except ImportError:
         return noise_x, noise_y
 
 
-class SlideBgElemCfg(Sprite):
+class MoveCfg(BaseModel):
+    track_limit: str
+    move_factor: t.List[int]
+    data_type: str = Field(validation_alias=AliasPath("data_type", 0))
+
+
+class FgElemCfg(Sprite):
+    id: int
+    init_pos: t.List[int]
+    move_cfg: t.Optional[MoveCfg] = None
+
+
+class FgBindingCfg(BaseModel):
+    master: int
+    slave: int
+    bind_type: str
+    bind_factor: int
+
+
+class SlideBgElemCfg(CommonBgElmConf, Sprite):
     img_url: str
     """relative url to get jigsaw puzzle image (background with dimmed piece shape)."""
     init_pos: t.List[int] = Field(default=[0, 0])
     """sprite init position on captcha (x, y)"""
 
 
-class SlideCaptchaDisplay(BaseModel):
+class SlideRender(CommonRender):
     bg: SlideBgElemCfg = Field(alias="bg_elem_cfg")
     """Background (puzzle)"""
     fg_binding_list: t.List[FgBindingCfg] = Field(default=[])
@@ -80,11 +99,7 @@ class SlideCaptchaSession(BaseTcaptchaSession):
 
     def parse_captcha_data(self):
         super().parse_captcha_data()
-        try:
-            self.render = SlideCaptchaDisplay.model_validate(self.conf.render)
-        except ValidationError:
-            log.error(f"Slide captcha conf render: {self.conf.render}")
-            raise
+        self.render = SlideRender.model_validate(self.conf.render)
 
         self.cdn_urls = (
             self._cdn_join(self.render.bg.img_url),
@@ -94,8 +109,7 @@ class SlideCaptchaSession(BaseTcaptchaSession):
 
         self.piece_sprite = first(self.render.sprites, lambda s: s.move_cfg)
         assert self.piece_sprite.move_cfg
-        if self.piece_sprite.move_cfg.data_type:
-            self.data_type = self.piece_sprite.move_cfg.data_type[0]
+        self.data_type = self.piece_sprite.move_cfg.data_type
 
     async def get_captcha_problem(self, client: ClientAdapter):
         """
