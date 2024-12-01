@@ -15,15 +15,6 @@ from pydantic import (
 
 __all__ = ["FeedData"]
 
-if sys.version_info >= (3, 9):
-    removeprefix = str.removeprefix
-else:
-
-    def removeprefix(self: str, prefix: str, /):
-        if self.startswith(prefix):
-            return self[len(prefix) :]
-        return self
-
 
 class UgcRight(IntEnum):
     unknown = 0
@@ -225,13 +216,13 @@ class Share(HasCommon):
 
 class FeedOriginal(HasFid, HasCommon, HasUserInfo, HasSummary, HasMedia):
     @model_validator(mode="before")
-    def remove_prefix(cls, v: dict):
-        return {removeprefix(k, "cell_"): i for k, i in v.items()}
+    def remove_prefix(cls, v: dict[str, t.Any]):
+        return {k.removeprefix("cell_"): i for k, i in v.items()}
 
     @field_validator("summary")
     @classmethod
     def remove_colon(cls, v: FeedSummary):
-        v.summary = removeprefix(v.summary, "：")
+        v.summary = v.summary.removeprefix("：")
         return v
 
 

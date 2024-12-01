@@ -21,7 +21,6 @@ from .feed import (
     Share,
     ShareInfo,
     UserInfo,
-    removeprefix,
 )
 
 
@@ -89,13 +88,13 @@ class ProfileComment(FeedComment):
 
 class ProfileFeedOriginal(HasFid, HasCommon, HasUserInfo, HasSummary, HasMedia):
     @model_validator(mode="before")
-    def remove_prefix(cls, v: dict):
-        return {removeprefix(k, "cell_"): i for k, i in v.items()}
+    def remove_prefix(cls, v: dict[str, t.Any]):
+        return {k.removeprefix("cell_"): i for k, i in v.items()}
 
     @field_validator("summary")
     @classmethod
     def remove_colon(cls, v: FeedSummary):
-        v.summary = removeprefix(v.summary, "：")
+        v.summary = v.summary.removeprefix("：")
         return v
 
 
