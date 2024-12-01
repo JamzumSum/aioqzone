@@ -3,7 +3,7 @@ import logging
 import typing as t
 from contextlib import suppress
 
-from pydantic import AliasPath, BaseModel, Field, model_validator
+from pydantic import AliasPath, BaseModel, Field, ValidationError, model_validator
 
 from qqqr.message import solve_select_captcha
 from qqqr.utils.iter import first
@@ -62,7 +62,12 @@ class SelectCaptchaSession(BaseTcaptchaSession):
 
     def parse_captcha_data(self):
         super().parse_captcha_data()
-        self.render = SelectCaptchaDisplay.model_validate(self.conf.render)
+        try:
+            self.render = SelectCaptchaDisplay.model_validate(self.conf.render)
+        except ValidationError:
+            log.error(f"Slide captcha conf render: {self.conf.render}")
+            raise
+
         if self.render.bg.click_cfg.data_type:
             self.data_type = self.render.bg.click_cfg.data_type[0]
 

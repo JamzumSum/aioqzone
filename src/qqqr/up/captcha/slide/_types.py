@@ -4,7 +4,7 @@ import typing as t
 from contextlib import suppress
 from random import choices, randint
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ValidationError
 
 from qqqr.message import solve_slide_captcha
 from qqqr.utils.iter import first, firstn
@@ -80,7 +80,12 @@ class SlideCaptchaSession(BaseTcaptchaSession):
 
     def parse_captcha_data(self):
         super().parse_captcha_data()
-        self.render = SlideCaptchaDisplay.model_validate(self.conf.render)
+        try:
+            self.render = SlideCaptchaDisplay.model_validate(self.conf.render)
+        except ValidationError:
+            log.error(f"Slide captcha conf render: {self.conf.render}")
+            raise
+
         self.cdn_urls = (
             self._cdn_join(self.render.bg.img_url),
             self._cdn_join(self.render.sprite_url),
