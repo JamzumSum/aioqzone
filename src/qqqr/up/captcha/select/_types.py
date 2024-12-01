@@ -3,22 +3,21 @@ import logging
 import typing as t
 from contextlib import suppress
 
-from pydantic import AliasPath, BaseModel, Field, model_validator
+from pydantic import AliasPath, BaseModel, Field, ValidationError, model_validator
 
 from qqqr.message import solve_select_captcha
 from qqqr.utils.iter import first
 from qqqr.utils.jsjson import json_loads
 from qqqr.utils.net import ClientAdapter
 
-from .._model import ClickCfg, PrehandleResp, Sprite
+from .._model import CommonBgElmConf, CommonRender, PrehandleResp, Sprite
 from ..capsess import BaseTcaptchaSession
 from ..pil_utils import *
 
 log = logging.getLogger(__name__)
 
 
-class SelectBgElemCfg(Sprite):
-    click_cfg: ClickCfg
+class SelectBgElemCfg(CommonBgElmConf, Sprite):
     img_url: str
 
 
@@ -40,7 +39,7 @@ class SelectJsonPayload(BaseModel):
         return len(self.picture_ids)
 
 
-class SelectCaptchaDisplay(BaseModel):
+class SelectRender(CommonRender):
     instruction: str
     bg: SelectBgElemCfg = Field(alias="bg_elem_cfg")
     verify_trigger_cfg: dict
@@ -56,15 +55,14 @@ class SelectCaptchaDisplay(BaseModel):
 class SelectCaptchaSession(BaseTcaptchaSession):
     solve_captcha_hook: solve_select_captcha.TyInst
 
-    def __init__(self, session: str, prehandle: PrehandleResp) -> None:
+    def __init__(self, session: str, prehandle: "PrehandleResp") -> None:
         super().__init__(session, prehandle)
         self.mouse_track.set_result(None)
 
     def parse_captcha_data(self):
         super().parse_captcha_data()
-        self.render = SelectCaptchaDisplay.model_validate(self.conf.render)
-        if self.render.bg.click_cfg.data_type:
-            self.data_type = self.render.bg.click_cfg.data_type[0]
+        self.render = SelectRender.model_validate(self.conf.render)
+        self.data_type = self.render.bg.cfg.data_type
 
     async def get_captcha_problem(self, client: ClientAdapter):
         async with client.get(self._cdn_join(self.render.bg.img_url)) as r:

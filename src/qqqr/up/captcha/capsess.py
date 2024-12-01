@@ -1,19 +1,23 @@
 import asyncio
+import logging
 import typing as t
 from abc import ABC, abstractmethod
 from hashlib import md5
 from time import time
 
+from pydantic import ValidationError
 from tylisten import HookSpec
 from yarl import URL
 
 from qqqr.utils.net import ClientAdapter
 
-from ._model import PrehandleResp
+from ._model import CommonRender, PrehandleResp
+
+log = logging.getLogger(__name__)
 
 
 class BaseTcaptchaSession(ABC):
-    data_type: str = "DynAnswerType_UC"
+    data_type: str
     mouse_track: "asyncio.Future[t.Optional[t.List[t.Tuple[int, int]]]]"
     solve_captcha_hook: HookSpec
 
@@ -32,6 +36,7 @@ class BaseTcaptchaSession(ABC):
         self.mouse_track = asyncio.get_event_loop().create_future()
 
     def parse_captcha_data(self):
+        assert self.prehandle.captcha
         self.conf = self.prehandle.captcha
 
     def solve_workload(self, *, timeout: float = 30.0):
@@ -97,10 +102,21 @@ class BaseTcaptchaSession(ABC):
 
     @classmethod
     def factory(cls, session: str, prehandle: PrehandleResp):
-        render = prehandle.captcha.render
-        if "json_payload" in render:
-            from .select._types import SelectCaptchaSession as cls
+        assert prehandle.captcha
+
+        try:
+            render = CommonRender.model_validate(prehandle.captcha.render)
+        except ValidationError:
+            log.error(prehandle.captcha.render)
+            raise
+
+        if render.bg.cfg.data_type == "DynAnswerType_UC":
+            from .select import SelectCaptchaSession as cls
+        elif render.bg.cfg.data_type == "DynAnswerType_POS":
+            log.error(prehandle.captcha.render)
+            raise NotImplementedError("“依次点击”类验证码正在施工")
+            from .click import ClickCaptchaSession as cls
         else:
-            from .slide._types import SlideCaptchaSession as cls
+            from .slide import SlideCaptchaSession as cls
 
         return cls(session=session, prehandle=prehandle)

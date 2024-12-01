@@ -18,7 +18,8 @@ from ...utils.net import ClientAdapter
 from .._model import VerifyResp
 from ._model import PrehandleResp
 from .capsess import BaseTcaptchaSession as TcaptchaSession
-from .select._types import SelectCaptchaSession
+from .click import ClickCaptchaSession
+from .select import SelectCaptchaSession
 
 PREHANDLE_URL = "https://t.captcha.qq.com/cap_union_prehandle"
 SHOW_NEW_URL = "https://t.captcha.qq.com/cap_union_new_show"
@@ -132,6 +133,8 @@ class Captcha(_CaptchaHookMixin):
         sess = TcaptchaSession.factory(sid, await retry_closure())
         if isinstance(sess, SelectCaptchaSession):
             sess.solve_captcha_hook = self.solve_select_captcha
+        elif isinstance(sess, ClickCaptchaSession):
+            raise NotImplementedError("“依次点击”类验证码正在施工")
         else:
             sess.solve_captcha_hook = self.solve_slide_captcha
         return sess
