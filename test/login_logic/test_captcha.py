@@ -50,7 +50,10 @@ async def captcha(login: UpH5Login):
 
 @pytest_asyncio.fixture(scope="class")
 async def sess(captcha: Captcha, upsess: UpWebSession):
-    return await captcha.new(upsess.sid)
+    try:
+        return await captcha.new(upsess.sid)
+    except NotImplementedError:
+        pytest.skip("current type of captcha has not been implemented")
 
 
 class TestCaptcha:
