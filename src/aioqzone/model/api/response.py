@@ -157,7 +157,6 @@ class IndexPageResp(FeedPageResp):
         data = validate_strdict(json_loads(data))
 
         with suppress(TypeError):
-            assert isinstance(data["data"], dict)
             data["data"]["qzonetoken"] = qzonetoken
 
         return data
