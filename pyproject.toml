@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "aioqzone"
-version = "1.9.1.dev3"
+version = "1.9.2.dev1"
 description = "A Python wrapper for Qzone login and H5 APIs."
-authors = ["aioqzone <zzzzss990315@gmail.com>"]
+authors = ["aioqzone <22952836+JamzumSum@users.noreply.github.com>"]
 license = "AGPL-3.0"
 readme = "README.md"
 homepage = "https://github.com/aioqzone/aioqzone"
@@ -48,7 +48,7 @@ optional = false
 
 [tool.poetry.group.test.dependencies]
 pytest = "^8.2.0"
-pytest-asyncio = "~0.21.2"
+pytest-asyncio = "~0.25.2"
 
 [tool.poetry.group.dev]
 optional = true
@@ -87,6 +87,7 @@ build-backend = "poetry.core.masonry.api"
 pythonpath = 'src'
 log_cli = 1
 log_cli_level = 'WARNING'
+asyncio_default_fixture_loop_scope = "module"
 
 [tool.isort]
 profile = "black"
@@ -99,3 +100,4 @@ target-version = ['py39']
 [tool.pyright]
 pythonVersion = "3.9"
 pythonPlatform = "All"
+reportIncompatibleVariableOverride = "information"

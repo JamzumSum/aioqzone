@@ -4,9 +4,10 @@ from textwrap import dedent
 from typing import Dict, List, Union
 
 logger = logging.getLogger(__name__)
-JsonDict = Dict[Union[str, int], "JsonValue"]
+BaseTypes = Union[int, float, bool, str]
+JsonDict = Dict[BaseTypes, "JsonValue"]
 JsonList = List["JsonValue"]
-JsonValue = Union[bool, int, str, JsonDict, JsonList]
+JsonValue = Union[BaseTypes, JsonDict, JsonList]
 
 
 class AstLoader:
@@ -27,7 +28,7 @@ class AstLoader:
         def visit_Name(self, node: ast.Name):
             if node.id in self.const:
                 return self.const[node.id]
-            return ast.Str(s=node.id)
+            return ast.Constant(value=node.id)
 
     @classmethod
     def json_loads(cls, js: str, filename: str = "stdin") -> JsonValue:

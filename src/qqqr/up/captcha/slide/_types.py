@@ -99,7 +99,7 @@ class SlideCaptchaSession(BaseTcaptchaSession):
 
     def parse_captcha_data(self):
         super().parse_captcha_data()
-        self.render = SlideRender.model_validate(self.conf.render)
+        self.render = SlideRender.model_validate(self.conf["render"])
 
         self.cdn_urls = (
             self._cdn_join(self.render.bg.img_url),

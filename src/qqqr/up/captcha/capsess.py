@@ -36,8 +36,8 @@ class BaseTcaptchaSession(ABC):
         self.mouse_track = asyncio.get_event_loop().create_future()
 
     def parse_captcha_data(self):
-        assert self.prehandle.captcha
-        self.conf = self.prehandle.captcha
+        assert self.prehandle["captcha"]
+        self.conf = self.prehandle["captcha"]
 
     def solve_workload(self, *, timeout: float = 30.0):
         """
@@ -49,9 +49,9 @@ class BaseTcaptchaSession(ABC):
         :return: None
         """
 
-        pow_cfg = self.conf.common.pow_cfg
-        nonce = str(pow_cfg.prefix).encode()
-        target = pow_cfg.md5.lower()
+        pow_cfg = self.conf["common"]["pow_cfg"]
+        nonce = str(pow_cfg["prefix"]).encode()
+        target = pow_cfg["md5"].lower()
 
         start = time()
         cnt = 0
@@ -70,7 +70,9 @@ class BaseTcaptchaSession(ABC):
 
     def _tdx_js_url(self):
         assert self.conf
-        return URL("https://t.captcha.qq.com").with_path(self.conf.common.tdc_path, encoded=True)
+        return URL("https://t.captcha.qq.com").with_path(
+            self.conf["common"]["tdc_path"], encoded=True
+        )
 
     def _vmslide_js_url(self):
         raise NotImplementedError
@@ -87,7 +89,7 @@ class BaseTcaptchaSession(ABC):
             r.raise_for_status()
             self.tdc = prepare(
                 await r.text("utf8"),
-                ip=ip or self.prehandle.uip,
+                ip=ip or self.prehandle["uip"],
                 ua=ua or client.headers["User-Agent"],
                 mouse_track=await self.mouse_track,
             )
@@ -102,18 +104,18 @@ class BaseTcaptchaSession(ABC):
 
     @classmethod
     def factory(cls, session: str, prehandle: PrehandleResp):
-        assert prehandle.captcha
+        assert prehandle["captcha"]
 
         try:
-            render = CommonRender.model_validate(prehandle.captcha.render)
+            render = CommonRender.model_validate(prehandle["captcha"]["render"])
         except ValidationError:
-            log.error(prehandle.captcha.render)
+            log.error(prehandle["captcha"]["render"])
             raise
 
-        if render.bg.cfg.data_type == "DynAnswerType_UC":
+        if render.bg.cfg["data_type"] == "DynAnswerType_UC":
             from .select import SelectCaptchaSession as cls
-        elif render.bg.cfg.data_type == "DynAnswerType_POS":
-            log.error(prehandle.captcha.render)
+        elif render.bg.cfg["data_type"] == "DynAnswerType_POS":
+            log.error(prehandle["captcha"]["render"])
             raise NotImplementedError("“依次点击”类验证码正在施工")
             from .click import ClickCaptchaSession as cls
         else:

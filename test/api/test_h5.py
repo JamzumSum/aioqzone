@@ -13,7 +13,7 @@ from aioqzone.api.h5 import QzoneH5API
 from aioqzone.model import LikeData, UgcRight
 from qqqr.utils.net import ClientAdapter
 
-pytestmark = pytest.mark.asyncio
+pytestmark = pytest.mark.asyncio(scope="module")
 
 MOOD_TEXT = "This is a curious test :D"
 COMMENT_TEXT = "Here is a kind comment :)"

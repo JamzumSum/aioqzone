@@ -2,17 +2,17 @@
 
 import typing as t
 
-from pydantic import BaseModel, Field, HttpUrl
+from pydantic import BaseModel, Field, HttpUrl, TypeAdapter
 
 from qqqr.type import RedirectCookies
 
 
-class CheckResp(BaseModel):
+class CheckResp(t.NamedTuple):
     code: int
     """code = 0/2/3 hideVC; code = 1 showVC
     """
     verifycode: str
-    salt_repr: str = Field(alias="salt")
+    salt_repr: t.Annotated[str, Field(alias="salt")]
     verifysession: str
     isRandSalt: int
     ptdrvs: str
@@ -40,3 +40,6 @@ class VerifyResp(BaseModel):
     ticket: str
     errMessage: str
     sess: str
+
+
+CheckRespValidator = TypeAdapter(CheckResp)

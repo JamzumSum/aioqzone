@@ -24,7 +24,7 @@ if TYPE_CHECKING:
 
     from qqqr.utils.net import ClientAdapter
 
-pytestmark = pytest.mark.asyncio
+pytestmark = pytest.mark.asyncio(scope="module")
 skip_ci = pytest.mark.skipif(bool(environ.get("CI")), reason="Skip QR loop in CI")
 
 _fake_request = cast(Request, ...)

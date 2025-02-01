@@ -1,22 +1,23 @@
 import typing as t
 
-from pydantic import AliasPath, BaseModel, Field
+from pydantic import AliasPath, BaseModel, Field, TypeAdapter
+from typing_extensions import TypedDict
 
 
-class PowCfg(BaseModel):
+class PowCfg(TypedDict):
     prefix: str
     md5: str
 
 
-class CommonCaptchaConf(BaseModel):
+class CommonCaptchaConf(TypedDict):
     pow_cfg: PowCfg
     """Ians, duration = match_md5(pow_cfg)"""
     tdc_path: str
     """relative path to get tdc.js"""
 
 
-class CommonClickConf(BaseModel):
-    data_type: str = Field(validation_alias=AliasPath("data_type", 0))
+class CommonClickConf(TypedDict):
+    data_type: t.Annotated[str, Field(validation_alias=AliasPath("data_type", 0))]
     mark_style: str
 
 
@@ -50,24 +51,27 @@ class Sprite(BaseModel):
         return (l, t, l + self.width, l + self.height)
 
 
-class CaptchaData(BaseModel):
-    common: CommonCaptchaConf = Field(alias="comm_captcha_cfg")
-    render: dict[str, t.Any] = Field(alias="dyn_show_info")
+class CaptchaData(TypedDict):
+    common: t.Annotated[CommonCaptchaConf, Field(alias="comm_captcha_cfg")]
+    render: t.Annotated[dict[str, t.Any], Field(alias="dyn_show_info")]
 
 
-class PrehandleResp(BaseModel):
-    captcha: t.Optional[CaptchaData] = Field(alias="data", default=None)
+class PrehandleResp(TypedDict):
+    captcha: t.Annotated[t.Optional[CaptchaData], Field(alias="data", default=None)]
     sess: str
 
-    capclass: int = 0
-    log_js: str = ""
-    randstr: str = ""
-    sid: str = ""
-    src_1: str = ""
-    src_2: str = ""
-    src_3: str = ""
-    state: int = 0
-    subcapclass: int = 0
-    ticket: str = ""
-    uip: str = ""
+    capclass: t.Annotated[int, Field(default=0)]
+    log_js: t.Annotated[str, Field(default="")]
+    randstr: t.Annotated[str, Field(default="")]
+    sid: t.Annotated[str, Field(default="")]
+    src_1: t.Annotated[str, Field(default="")]
+    src_2: t.Annotated[str, Field(default="")]
+    src_3: t.Annotated[str, Field(default="")]
+    state: t.Annotated[int, Field(default=0)]
+    subcapclass: t.Annotated[int, Field(default=0)]
+    ticket: t.Annotated[str, Field(default="")]
+    uip: t.Annotated[str, Field(default="")]
     """ipv4 / ipv6"""
+
+
+PrehandleRespValidator = TypeAdapter(PrehandleResp)

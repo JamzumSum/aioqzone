@@ -4,7 +4,7 @@ import io
 from os import environ
 from typing import TYPE_CHECKING
 
-import pytest
+import pytest_asyncio
 from PIL import Image as image
 
 from aioqzone.api import UpLoginConfig, UpLoginManager
@@ -18,8 +18,8 @@ if environ.get("CI") is None:
     loginman_list.append("qr")
 
 
-@pytest.fixture(scope="module", params=loginman_list)
-def man(request, client: ClientAdapter, env: test_env):
+@pytest_asyncio.fixture(scope="module", params=loginman_list)
+async def man(request, client: ClientAdapter, env: test_env):
     if request.param == "up":
         return UpLoginManager(
             client,
