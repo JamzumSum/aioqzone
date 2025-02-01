@@ -13,7 +13,7 @@ from qqqr.constant import StatusCode
 from qqqr.exception import UserBreak
 from qqqr.qr import QrLogin, QrSession
 
-pytestmark = pytest.mark.asyncio
+pytestmark = pytest.mark.asyncio(scope="module")
 skip_ci = pytest.mark.skipif(bool(environ.get("CI")), reason="Skip QR loop in CI")
 
 if TYPE_CHECKING:

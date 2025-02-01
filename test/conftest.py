@@ -1,4 +1,3 @@
-import asyncio
 from os import environ
 
 import pytest
@@ -12,7 +11,7 @@ from qqqr.utils.net import ClientAdapter
 class test_env(BaseSettings):
     model_config = SettingsConfigDict(env_prefix="test_")
     uin: int = 0
-    password: SecretStr = Field(default="")
+    password: SecretStr = Field(default=SecretStr(""))
 
 
 @pytest.fixture(scope="session")
@@ -23,14 +22,6 @@ def env():
 @pytest.fixture(scope="session")
 def CI():
     return environ.get("CI") is not None
-
-
-@pytest.fixture(scope="module")
-def event_loop():
-    loop = asyncio.new_event_loop()
-    yield loop
-    loop.run_until_complete(loop.shutdown_asyncgens())
-    loop.close()
 
 
 @pytest_asyncio.fixture(scope="module")
