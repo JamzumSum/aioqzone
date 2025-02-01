@@ -100,3 +100,4 @@ target-version = ['py39']
 [tool.pyright]
 pythonVersion = "3.9"
 pythonPlatform = "All"
+reportIncompatibleVariableOverride = "information"

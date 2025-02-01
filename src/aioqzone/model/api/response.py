@@ -4,19 +4,28 @@ from contextlib import suppress
 
 from aiohttp import ClientResponse
 from lxml.html import HtmlElement, document_fromstring
-from pydantic import AliasChoices, AliasPath, BaseModel, Field, HttpUrl, model_validator
+from pydantic import (
+    AliasChoices,
+    AliasPath,
+    BaseModel,
+    Field,
+    HttpUrl,
+    TypeAdapter,
+    model_validator,
+)
 from tenacity import TryAgain
 from typing_extensions import Self
 
 from aioqzone.exception import QzoneError
 from aioqzone.utils.regex import entire_closing, response_callback
 from qqqr.utils.iter import firstn
-from qqqr.utils.jsjson import JsonValue, json_loads
+from qqqr.utils.jsjson import json_loads
 
 from .feed import FeedData
 from .profile import ProfileFeedData, QzoneProfile
 
-StrDict = t.Dict[str, JsonValue]
+StrDict = t.Dict[str, t.Any]
+
 
 __all__ = [
     "QzoneResponse",
@@ -36,6 +45,9 @@ __all__ = [
     "PicInfo",
     "ProfileFeedData",
 ]
+
+validate_strdict = TypeAdapter(StrDict).validate_python
+validate_str = TypeAdapter(str).validate_python
 
 
 class QzoneResponse(BaseModel):
@@ -120,7 +132,7 @@ class IndexPageResp(FeedPageResp):
     qzonetoken: str = ""
 
     @classmethod
-    async def response_to_object(cls, response: ClientResponse):
+    async def response_to_object(cls, response: ClientResponse) -> StrDict:
         html = await response.text()
         scripts: t.List[HtmlElement] = document_fromstring(html).xpath(
             'body/script[@type="application/javascript"]'
@@ -142,9 +154,11 @@ class IndexPageResp(FeedPageResp):
         if m is None:
             raise TryAgain("page data not found")
         data = script[m.end() - 1 : m.end() + entire_closing(script[m.end() - 1 :])]
-        data = json_loads(data)
+        data = validate_strdict(json_loads(data))
+
         with suppress(TypeError):
-            data["data"]["qzonetoken"] = qzonetoken  # type: ignore
+            assert isinstance(data["data"], dict)
+            data["data"]["qzonetoken"] = qzonetoken
 
         return data
 
@@ -206,9 +220,9 @@ class ProfilePagePesp(QzoneResponse):
     @classmethod
     def from_response_object(cls, obj: "StrDict") -> Self:
         return cls(
-            info=QzoneInfo.from_response_object(obj["info"]),  # type: ignore
-            feedpage=ProfileResp.from_response_object(obj["feedpage"]),  # type: ignore
-            qzonetoken=obj["qzonetoken"],  # type: ignore
+            info=QzoneInfo.from_response_object(validate_strdict(obj["info"])),
+            feedpage=ProfileResp.from_response_object(validate_strdict(obj["feedpage"])),
+            qzonetoken=validate_str(obj.get("qzonetoken", "")),
         )
 
 
@@ -245,10 +259,10 @@ class UploadPicResponse(QzoneResponse):
     filemd5: str
 
     @classmethod
-    async def response_to_object(cls, response: ClientResponse):
+    async def response_to_object(cls, response: ClientResponse) -> StrDict:
         m = response_callback.search(await response.text())
         assert m
-        return json_loads(m.group(1))
+        return validate_strdict(json_loads(m.group(1)))
 
 
 class PicInfo(QzoneResponse):
@@ -268,7 +282,7 @@ class PhotosPreuploadResponse(QzoneResponse):
     photos: t.List[PicInfo] = Field(default_factory=list)
 
     @classmethod
-    async def response_to_object(cls, response: ClientResponse):
+    async def response_to_object(cls, response: ClientResponse) -> StrDict:
         m = response_callback.search(await response.text())
         assert m
 
