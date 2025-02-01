@@ -16,7 +16,7 @@ from qqqr.message import solve_select_captcha, solve_slide_captcha
 
 from ...utils.net import ClientAdapter
 from .._model import VerifyResp
-from ._model import PrehandleResp
+from ._model import PrehandleResp, PrehandleRespValidator
 from .capsess import BaseTcaptchaSession as TcaptchaSession
 from .click import ClickCaptchaSession
 from .select import SelectCaptchaSession
@@ -128,7 +128,7 @@ class Captcha(_CaptchaHookMixin):
                 m = re.search(CALLBACK + r"\((\{.*\})\)", await r.text("utf8"))
 
             assert m
-            return PrehandleResp.model_validate_json(m.group(1))
+            return PrehandleRespValidator.validate_json(m.group(1))
 
         sess = TcaptchaSession.factory(sid, await retry_closure())
         if isinstance(sess, SelectCaptchaSession):
@@ -181,9 +181,9 @@ class Captcha(_CaptchaHookMixin):
             "collect": collect,
             "tlg": len(collect),
             "eks": info.strip("'"),
-            "sess": sess.prehandle.sess,
+            "sess": sess.prehandle["sess"],
             "ans": json.dumps([ans]),
-            "pow_answer": hex_add(sess.conf.common.pow_cfg.prefix, sess.pow_ans),
+            "pow_answer": hex_add(sess.conf["common"]["pow_cfg"]["prefix"], sess.pow_ans),
             "pow_calc_time": sess.duration,
         }
         log.debug(f"verify post data: {data}")

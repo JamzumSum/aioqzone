@@ -4,7 +4,7 @@ from random import random
 
 from yarl import URL
 
-from ._model import CheckResp
+from ._model import CheckRespValidator
 from .web import UpWebLogin, UpWebSession
 
 log = logging.getLogger(__name__)
@@ -43,13 +43,7 @@ class UpH5Login(UpWebLogin):
             r.raise_for_status()
             rl = re.findall(r"'(.*?)'[,\)]", await r.text())
 
-        rdict = dict(
-            zip(
-                ["code", "verifycode", "salt", "verifysession", "isRandSalt", "ptdrvs", "session"],
-                rl,
-            )
-        )
-        sess.set_check_result(CheckResp.model_validate(rdict))
+        sess.set_check_result(CheckRespValidator.validate_python(rl))
 
     async def _make_login_param(self, sess: UpWebSession):
         const = {

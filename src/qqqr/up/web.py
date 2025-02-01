@@ -16,7 +16,7 @@ from qqqr.type import APPID, PT_QR_APP, Proxy
 from qqqr.utils.iter import firstn
 from qqqr.utils.net import ClientAdapter, get_all_cookie
 
-from ._model import CheckResp, LoginResp, RedirectCookies, VerifyResp
+from ._model import CheckResp, CheckRespValidator, LoginResp, RedirectCookies, VerifyResp
 from .captcha import Captcha
 from .encrypt import PasswdEncoder, TeaEncoder
 
@@ -160,13 +160,7 @@ class UpWebLogin(LoginBase[UpWebSession], _UpHookMixin):
             r.raise_for_status()
             rl = re.findall(r"'(.*?)'[,\)]", await r.text())
 
-        rdict = dict(
-            zip(
-                ["code", "verifycode", "salt", "verifysession", "isRandSalt", "ptdrvs", "session"],
-                rl,
-            )
-        )
-        sess.set_check_result(CheckResp.model_validate(rdict))
+        sess.set_check_result(CheckRespValidator.validate_python(rl))
 
     async def send_sms_code(self, sess: UpWebSession):
         """Send verify sms (to get dynamic code)
